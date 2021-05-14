@@ -1,0 +1,749 @@
+<style>
+    body {
+        color: black;
+        background-color: rgb(248, 248, 248);
+
+    }
+    .body-bg{
+        background-color: rgb(248, 248, 248);
+    }
+    .navbar-light{
+        background-color: white !important;
+        color: black;
+    }
+
+    .navbar-dark{
+        background-color: black !important;
+        color: white;
+    }
+
+    .dark-bg{
+        background-color: rgb(7, 7, 7) !important;
+        /* background-color: rgb(14, 13, 13) !important; */
+        background-color: rgb(14, 14, 14) !important;
+        color: white;
+    }
+    .light-bg{
+        color: black;
+        background-color: rgb(248, 248, 248);
+    }
+    .row-bg {
+        background-color: white;
+        background-color: black;
+        color: white;
+    }
+
+    .white-row-bg{
+        background-color: white;
+        color: black;
+    }
+
+    .dark-row-bg {
+        background-color: black;
+        color: white;
+    }
+
+
+    .white-bg {
+        background-color: white;
+        color: black !important;
+    }
+    .black-bg{
+        background-color: black !important;
+        color: white !important;
+    }
+
+
+    .form-white-bg {
+        background-color: white;
+        color: black !important;
+    }
+    .form-black-bg{
+        background-color: black !important;
+        color: white !important;
+    }
+
+
+    .grey-bg{
+	background-color: rgb(248, 248, 248);
+    }
+
+    .left-text{
+        text-align: left;
+    }
+
+    .add-sm-btn:hover{
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    .add-new-btn:hover{
+
+    }
+
+
+    .income,.available-percent,
+    .income:hover {
+        color: #00BFA5 !important;
+        /* color:#1DE9B6 ; */
+    }
+
+    .expense,.expense-percent,
+    .expense:hover {
+        /* color: #FF1744; */
+        /* color: #D50000; */
+        color: #FF5252;
+        color: #E53935 !important;
+    }
+
+    .savings,.savings-percent{
+        color: #FFD54F;
+    }
+
+    .heading {
+        /* font-weight: bold; */
+        font-size: 1.15em;
+    }
+
+    .expense-percent,
+    .available-percent ,.savings-percent{
+        font-size: .5em;
+        
+    }
+
+    .head {
+        font-size: 1.5rem;
+    }
+
+    .amt {
+        font-size: .95rem;
+        font-weight: bold;
+    }
+
+    .content {
+        font-size: .95rem;
+        cursor: pointer;
+    }
+
+
+    .month-savings{
+        font-size: 1.8rem;
+    }
+    .arrows{
+        font-size: .8em;
+    }
+    .no-inc-exp{
+        font-size: 1.5em;
+    }
+
+    .content:hover {
+        /* background-color: #00BFA5; */
+
+    }
+
+    .border-class {
+        border-left: none;
+        border-top: none;
+        border-right: none;
+        border-radius: 0px;
+        outline-style: none !important;
+        box-shadow: none !important;
+        border-color: grey !important;
+        /* border-color: #00BFA5 !important; */
+    }
+
+    .grayout {
+        opacity: 0.4;
+        /* Real browsers */
+        filter: alpha(opacity=80);
+        /* MSIE */
+    }
+
+    .jost {
+        font-family: 'Jost', sans-serif !important;
+    }
+
+    .budget-row:hover{
+        /* background-color: rgba(233, 233, 233, 0.854);
+        background-color: rgba(5, 5, 5, 0.888); */
+
+    }
+
+    .budget-row-light:hover{
+        background-color: rgba(233, 233, 233, 0.854);
+
+    }
+
+    .budget-row-dark:hover{
+        background-color: rgba(5, 5, 5, 0.888);
+
+    }
+
+    .mobile-content{
+        display: none;
+    }
+
+    .word-wrap{
+        overflow-wrap: break-word;
+    }
+
+    #nav1,#nav2{
+        display: none;
+    }
+
+</style>
+
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
+
+
+
+
+
+
+<style>
+
+/* 
+#############################################################################################
+##################################### MOBILE  #################################################
+############################################################################################# */
+/* 
+@media only screen and (max-width: 1000px) {
+
+
+@media only screen and (max-width: 480px)
+@media screen and (orientation: portrait) 
+@media screen and (min-width:240px) and (max-width:480px), 
+   screen and (min-device-width:240px) and (max-device-width:480px)
+
+   @media (min-width: 768px) and (max-width: 1024px)
+
+*/
+@media screen and (min-device-width:240px) and (max-device-width:480px){
+
+    /* body{
+        font-size: 16px;
+        background-color: black;
+        color: white;
+        background-color: rgb(255, 255, 255);
+        color: black;
+        font-family: 'Jost', sans-serif !important;	  
+        font-family: 'Source Sans Pro', sans-serif !important;
+        font-size: 64px !important;
+    } */
+    
+    #nav1,#nav2{
+        display: flex;
+    }
+
+    #nav0{
+        display: none;
+    }
+
+    .jost{
+        font-family: 'Jost', sans-serif !important;	 
+    }
+
+
+    .nav-link-black-text,.nav-link-white-text{
+        font-size: 3rem;
+    }
+
+
+    .navbar-brand-custom{
+        font-size: 4rem;
+        font-weight:500;
+    }
+
+    #nav-no-profile-image{
+        font-size: 1.5rem;
+    }
+
+    .desktop-content{
+        display: none;
+    }
+    .heading {
+        font-weight: bold;
+        font-size: 3.5rem;
+    }
+
+    .expense-percent,
+    .available-percent ,.savings-percent{
+        font-size: .5em;
+        
+    }
+
+    .head {
+        font-size: 1.5rem;
+    }
+
+    .amt {
+        font-size: 2.5rem;
+        font-weight: bold;
+    }
+
+    .content {
+        font-size: 2.5rem;
+        cursor: pointer;
+    }
+
+    .month-savings{
+        font-size: 4.5rem;
+    }
+    .arrows{
+        font-size: .8em;
+    }
+    .no-inc-exp{
+        font-size: 3.5rem;
+    }
+
+    .total-inc-exp{
+        font-size: 4rem;
+    }
+
+    
+    .add-sm-btn{
+        font-size: 3.5rem;
+        font-weight: bold;
+    }
+
+    .add-sm-btn:hover{
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+    .row-font{
+        font-size: 30rem;
+    }
+    .white-row-bg{
+
+    }
+    .mobile-content{
+        display: block;
+    }
+
+    .bottom-fixed-row{
+        font-size: 2.2rem;
+    }
+    .bottom-amount{
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .modal-font{
+        font-size: 4rem;
+    }
+    .modal-btn-font{
+        font-size: 3.2rem;
+        padding: 2%;
+        padding-top: 3%;
+        padding-bottom: 3%;
+    }
+ 
+    .modal-form-font{
+        font-size: 2.8rem;
+    }
+
+    .mobile-form{
+        top: 25% !important;
+    }
+
+    .word-wrap{
+        overflow-wrap: break-word;
+    }
+
+    .budget-row{
+        font-size: 2.3rem;
+    }
+    .budget-row-heading{
+        font-size: 2rem;
+    }
+
+    .budget-row-total{
+        font-size: 2.3rem;
+    }
+    .monthly-year{
+        font-size: 5rem;
+    }
+    .add-new-btn{
+        font-size: 2.5rem;
+    }
+    .no-budgets{
+        font-size: 6rem;
+    }
+
+}
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    var theme = 'light'
+
+    "{% if user.is_authenticated %}"
+        theme = "{{user.profile.theme}}"
+        console.log("User logged in");
+        console.log(theme);
+    "{% else %}"
+        theme = "null"
+    "{% endif %}"
+
+    if (theme == "null") {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            theme = 'dark'
+        }
+
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            theme = 'light'
+        }
+    }
+
+    setTheme()
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        theme = e.matches ? "dark" : "light";
+        setUserTheme(theme)
+        setTheme()
+    });
+
+
+function setTheme(){
+
+    light = 'light'
+    dark = 'dark'
+
+    whiteList = document.querySelectorAll('.white-bg')
+    darkList = document.querySelectorAll('.dark-bg')
+
+    navLinkBlacktextList = document.querySelectorAll('.nav-link-black-text')
+    navLinkWhitetextList = document.querySelectorAll('.nav-link-white-text')
+
+    bodyBg = document.querySelectorAll('.light-bg')
+    navBar = document.querySelectorAll('.navbar')
+
+    textWhiteList = document.querySelectorAll('.text-white')
+    textBlackList = document.querySelectorAll('.text-black')
+
+
+
+    whiteRowList = document.querySelectorAll('.white-row-bg')
+    darkRowList = document.querySelectorAll('.dark-row-bg')
+
+    formWhiteBg = document.querySelectorAll('.form-white-bg')
+    formBlackBg = document.querySelectorAll('.form-black-bg')
+
+    budgetRowLight = document.querySelectorAll('.budget-row-light')
+    budgetRowDark = document.querySelectorAll('.budget-row-dark')
+
+    console.log("Setting theme:",theme);
+
+    if(theme == dark)
+    {
+        for (const i of whiteList) {
+            if (i.classList.contains('white-bg')){
+                i.classList.remove('white-bg')
+                i.classList.add('dark-bg')
+            }
+        }
+        for (const i of navLinkBlacktextList) {
+            if (i.classList.contains('nav-link-black-text')){
+                i.classList.remove('nav-link-black-text')
+                i.classList.add('nav-link-white-text')
+            }
+        }
+        for (const i of bodyBg) {
+            if (i.classList.contains('light-bg')){
+                i.classList.remove('light-bg')
+                i.classList.add('dark-bg')
+            }
+        }
+
+        for (const i of textBlackList) {
+            if (i.classList.contains('text-black')){
+                i.classList.remove('text-black')
+                i.classList.add('text-white')
+            }
+        }
+
+        for (const i of formWhiteBg) {
+            if(i.classList.contains('form-white-bg')){
+                i.classList.remove('form-white-bg')
+                i.classList.add('form-black-bg')
+            }
+        }
+
+        for (const i of budgetRowLight) {
+            if(i.classList.contains('budget-row-light')){
+                i.classList.remove('budget-row-light')
+                i.classList.add('budget-row-dark')
+                }
+        }
+
+        for (const i of navBar) {
+            if(i.classList.contains('navbar-light')){
+                i.classList.remove('navbar-light')
+                i.classList.add('navbar-dark')
+                }
+        }
+
+    }
+
+
+    if(theme == light)
+    {
+        for (const i of darkList) {
+            if (i.classList.contains('dark-bg')){
+                i.classList.remove('dark-bg')
+                i.classList.add('white-bg')
+            }
+        }
+        for (const i of navLinkWhitetextList) {
+            if (i.classList.contains('nav-link-white-text')){
+                i.classList.remove('nav-link-white-text')
+                i.classList.add('nav-link-black-text')
+            }
+        }
+        for (const i of bodyBg) {
+            if (i.classList.contains('dark-bg')){
+                i.classList.remove('dark-bg')
+                i.classList.add('light-bg')
+            }
+        }
+
+        for (const i of textWhiteList) {
+            if (i.classList.contains('text-white')){
+                i.classList.remove('text-white')
+                i.classList.add('text-black')
+            }
+        }
+
+        for (const i of formBlackBg) {
+            if(i.classList.contains('form-black-bg')){
+                i.classList.remove('form-black-bg')
+                i.classList.add('form-white-bg')
+            }
+        }
+
+        for (const i of budgetRowDark) {
+            if(i.classList.contains('budget-row-dark')){
+                i.classList.remove('budget-row-dark')
+                i.classList.add('budget-row-light')
+            }
+        }
+
+        for (const i of navBar) {
+            if(i.classList.contains('navbar-dark')){
+                i.classList.remove('navbar-dark')
+                i.classList.add('navbar-light')
+                }
+        }
+
+    }
+
+
+    if(theme == dark)
+    {
+        for (const i of whiteRowList) {
+            if (i.classList.contains('white-row-bg')){
+                i.classList.remove('white-row-bg')
+                i.classList.add('dark-row-bg')
+            }
+        }
+    }
+
+    if(theme == light)
+    {
+        for (const i of darkRowList) {
+            if (i.classList.contains('dark-row-bg')){
+                i.classList.remove('dark-row-bg')
+                i.classList.add('white-row-bg')
+            }
+        }
+    }
+
+}
+
+
+
+themeSwitch = document.querySelector('#theme-switch')
+themeSwitchMobile = document.querySelector('#theme-switch-mobile')
+
+"{% if user.is_authenticated %}"
+    userTheme = "{{user.profile.theme}}"
+"{% else %}"
+    userTheme = "null"
+"{% endif %}"
+
+
+"{% if user.is_authenticated %}"
+    moonIcon = document.querySelector('.fa-moon')
+    moonIconList = document.querySelectorAll('.fa-moon')
+    moonMobile = document.querySelector('#mobile-moon')
+    for (const i of moonIconList) {
+        console.log(i);
+        if(theme==light){
+            if(i.classList.contains('fas')){
+                i.classList.remove('fas')
+                i.classList.add('far')
+            }
+
+        }else if(theme==dark){
+            if(i.classList.contains('far')){
+                i.classList.remove('far')
+                i.classList.add('fas')
+            }
+        } 
+    }
+
+"{% endif %}"
+
+if(themeSwitch!=null){
+    themeSwitch.addEventListener('click',function(){
+    console.log("--------------------------------------");
+    console.log("Theme switch clicked");
+
+    console.log("User Theme:",userTheme,"Realtime:","{{user.profile.theme}}");
+    if(userTheme==light){
+        console.log("Switching to dark...");
+        theme = dark
+        console.log("Theme to be sent:",theme);
+        setUserTheme(theme)
+        if(moonIcon.classList.contains('far')){
+            moonIcon.classList.remove('far')
+            moonIcon.classList.add('fas')
+        }
+
+    }else if(userTheme==dark){
+        console.log("Switching to light...");
+        theme=light
+        console.log("Theme to be sent:",theme);
+        setUserTheme(theme)
+        if(moonIcon.classList.contains('fas')){
+            moonIcon.classList.remove('fas')
+            moonIcon.classList.add('far')
+        }
+        
+    }else if (userTheme=="null"){
+        console.log(userTheme);
+        if(theme==light){
+            theme = dark
+            setUserTheme(theme)
+            if(moonIcon.classList.contains('far')){
+                moonIcon.classList.remove('far')
+                moonIcon.classList.add('fas')
+            }
+            setTheme()
+
+        }else if(theme==dark){
+            theme = light
+            setUserTheme(theme)
+            if(moonIcon.classList.contains('fas')){
+                moonIcon.classList.remove('fas')
+                moonIcon.classList.add('far')
+            }
+            setTheme()
+        }
+    }
+
+})
+}
+
+
+if(themeSwitchMobile!=null){
+    themeSwitchMobile.addEventListener('click',function(){
+    moonIcon = moonMobile
+    
+    if(theme==light){
+        theme = dark
+        setUserTheme(theme)
+        setTheme()
+        if(moonIcon.classList.contains('far')){
+            moonIcon.classList.remove('far')
+            moonIcon.classList.add('fas')
+        }
+
+    }else if(theme==dark){
+        theme=light
+        setUserTheme(theme)
+        setTheme()
+        if(moonIcon.classList.contains('fas')){
+            moonIcon.classList.remove('fas')
+            moonIcon.classList.add('far')
+        }
+        
+    }else if (theme=="null"){
+        if(theme==light){
+            theme = dark
+            setUserTheme(theme)
+            if(moonIcon.classList.contains('far')){
+                moonIcon.classList.remove('far')
+                moonIcon.classList.add('fas')
+            }
+            setTheme()
+
+        }else if(theme==dark){
+            theme = light
+            setUserTheme(theme)
+            if(moonIcon.classList.contains('fas')){
+                moonIcon.classList.remove('fas')
+                moonIcon.classList.add('far')
+            }
+            setTheme()
+        }
+    }
+})
+
+}
+
+
+
+
+function setUserTheme(theme) {
+    console.log("Theme got inside:",theme);
+    $.ajax({
+        headers: { "X-CSRFToken": '{{csrf_token}}' },
+        url: "{% url 'set-theme' %}",
+        type: "POST",
+        data: {
+            theme: theme,
+        },
+
+        success: function (json) {
+            console.log("Theme set");
+            console.log(json);
+            userTheme = theme
+            // location.reload()
+            setTheme()
+        },
+        error: function (xhr, errmsg, err) {
+            console.log("Error!")
+            console.log(xhr.status + ":" + xhr.responseText)
+        }
+
+    })
+
+}
+
+// sessionStorage.theme = theme
+// sessionStorage.getItem("theme") 
+
+// sessionStorage.setItem("theme",theme);
+
+</script>

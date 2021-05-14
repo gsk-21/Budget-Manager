@@ -1,0 +1,299 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+
+    <!-- Font Awesome -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css"
+    rel="stylesheet"
+    />
+
+    <!-- MDB -->
+    <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.js"
+    ></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;800&family=Source+Sans+Pro&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital@1&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+  <title>Budget Manager</title>
+
+
+<style>
+	.active{
+	color: black !important;
+	text-decoration: underline;
+	}
+	.nav-link:hover{
+		text-decoration: underline;
+	}
+</style>
+  
+</head>
+
+<body class="light-bg">
+
+  <!-- <nav class="navbar navbar-expand-md  sticky-top  shadow-0 container bg-white " id="desktop-nav">
+
+
+    <div class="d-flex  ">
+      <a class="navbar-brand mr-0  navbar-brand-custom font-weight-bold text-black" href="{% url 'home'%}">
+        <h3>  {{"Budget Manager "|title}} 
+        </h3> 
+      </a>
+    </div>
+    
+      <ul class="navbar-nav ml-auto nav-flex-icons float-end">
+
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light text-black"  href="{% url 'monthly-budget' %}">
+            <span class="font-weight-bold" style="font-size: .8em;">
+            Monthly Budget
+            </span>
+          </a>
+        </li>
+    
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light text-black"  href="{% url 'sign-up' %}">
+            <span class="font-weight-bold" style="font-size: .8em;">
+              Sign UP
+            </span>
+          </a>
+        </li>
+    
+
+       
+      </ul>
+
+      <button class="navbar-toggler  " type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+        <i class="fa fa-bars"></i>
+      </button>
+
+ 
+
+  </nav> -->
+
+  <nav class="navbar navbar-expand-lg navbar-light   container-fluid shadow-0 font sticky-top" id="nav0">
+	<div class="container-fluid">
+	<span class=" p-1">
+		<i class="fas fa-coins "></i>
+	</span>
+	  <a class="navbar-brand navbar-brand-custom font-weight-bold nav-link-black-text" 
+	  style="font-size: 1.2em;" 
+	  href="{% url 'home' %}">
+	  <span class="mr-4">
+		{{"Budget Manager"|title}} 
+	</span>
+	</a>
+	  <button
+		class="navbar-toggler"
+		type="button"
+		data-mdb-toggle="collapse"
+		data-mdb-target="#navbarTogglerDemo02"
+		aria-controls="navbarTogglerDemo02"
+		aria-expanded="false"
+		aria-label="Toggle navigation"
+	  >
+		<i class="fas fa-bars"></i>
+	  </button>
+	  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+		<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+		  <li class="nav-item">
+			<a class="nav-link nav-link-black-text
+			{% if request.resolver_match.url_name == 'home' %}active{% endif %}
+			text-black " aria-current="page" href="{% url 'home' %}">
+			Home</a>
+		  </li>
+		  {% if user.is_authenticated %}
+		 
+			<li class="nav-item">
+				<a class="nav-link nav-link-black-text
+				{% if request.resolver_match.url_name == 'monthly-budget' %}active{% endif %}
+				text-black" href="{% url 'monthly-budget' %}">My Budgets</a>
+			</li>
+
+		  {% endif %}
+
+
+		</ul>
+
+		<ul class="navbar-nav ">
+
+			{% if user.is_authenticated %}
+		
+			<li class="nav-item " >
+				<a class="nav-link nav-link-black-text theme-switch" href="#" id="theme-switch">
+					<i class="far fa-moon"></i>
+				</a>
+			</li>	
+
+			<li class="nav-item ">
+				<a class="nav-link nav-link-black-text" href="#">{{user.first_name|title|truncatechars:50}}</a>
+			</li>	
+	
+	
+			<li class="nav-item">
+				<a class="nav-link nav-link-black-text" href="{% url 'logout' %}">Logout</a>
+			</li>	
+	
+			{% else %}
+	
+			<li class="nav-item">
+				<a class="nav-link nav-link-black-text
+				{% if request.resolver_match.url_name == 'login' %}active{% endif %}" 
+				href="{% url 'login' %}">Login</a>
+			</li>	
+			{% endif %}
+		</ul>
+
+			
+	  </div>
+	</div>
+  </nav>
+
+
+<!--Navbar -->
+
+
+<nav class="navbar navbar-light sticky-top bg-primarys" id="nav2" style="box-shadow: none;">
+
+	<div class="navbar-header bg-successs">
+		<div class="container bg-dangers m-2">
+			<a class="navbar-brand nav-link-black-text navbar-brand-custom " 
+			href="{% url 'home' %}" id="user-name-container">
+			<span style="margin-left: 5%;">
+				<i class="fas fa-coins "></i>
+			</span>	
+			<span style="margin-left: 5%;">
+				Budget Manager 
+			</span>		
+		</a>	
+		</div>
+
+	</div>
+
+	<!-- RIGHT FIXED -->
+
+	{% if user.is_authenticated %}
+	<button
+	class="navbar-toggler"
+	type="button"
+	data-mdb-toggle="collapse"
+	data-mdb-target="#navbarTogglerDemo02"
+	aria-controls="navbarTogglerDemo02"
+	aria-expanded="false"
+	aria-label="Toggle navigation"
+	>
+	<div class="container bg-successs p-5">
+		<span class="nav-link-black-text " style="margin-right: 50% !important;font-size: 4rem;">
+			<i class="fas fa-bars"></i>
+		</span>
+	</div>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+		<div class="container">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				{% if user.is_authenticated %}
+				
+				<li class="nav-item">
+					<a class="nav-link nav-link-black-text
+					{% if request.resolver_match.url_name == 'monthly-budget' %}active{% endif %}
+					text-black" href="{% url 'monthly-budget' %}">
+						My Budgets ( {{user.first_name|title}} )
+					</a>
+				</li>
+		
+				{% endif %}
+			</ul>
+		
+			<ul class="navbar-nav ">	
+				<li class="nav-item " >
+					<a class="nav-link nav-link-black-text theme-switch" href="#" id="theme-switch-mobile">
+						Switch Theme <i class="far fa-moon" id="mobile-moon"></i> 
+					</a>
+				</li>	
+				{% if user.is_authenticated %}
+
+				<li class="nav-item">
+					<a class="nav-link nav-link-black-text" href="{% url 'logout' %}">Logout</a>
+				</li>	
+		
+				{% else %}
+		
+				<li class="nav-item">
+					<a class="nav-link nav-link-black-text
+					{% if request.resolver_match.url_name == 'login' %}active{% endif %}" 
+					href="{% url 'login' %}">Login</a>
+				</li>	
+				{% endif %}
+			</ul>
+		</div>
+
+	</div>
+
+	{% else %}
+
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<div class="container p-5">
+				<a class="nav-link nav-link-black-text
+				{% if request.resolver_match.url_name == 'login' %}active{% endif %}" 
+				href="{% url 'login' %}">Login</a>
+			</div>
+		</li>	
+	</ul>
+
+	{%endif%}
+
+</nav>
+
+<div class="mb-3"><br></div>
+
+
+  <style>
+	  .nav-link-white-text{
+		  color: white !important;
+	  }
+	  .nav-link-black-text{
+		  color: black !important;
+	  }
+	  .container{
+	  }
+  </style>
+  {% block content %}
+
+  {% endblock content %}
+  
+  {% include 'styling.html' %}
+</body>
+
+</html>
+
+
+<script>
+
+</script>
+

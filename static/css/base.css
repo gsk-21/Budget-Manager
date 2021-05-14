@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;800&display=swap');
+
+
+html {
+  position: relative;
+  overflow-x: hidden !important;
+}
+
+
+white-bg{
+	background-color: white !important;
+	
+}
+
+.navbar-brand-custom{
+ 
+	font-size: 1rem;
+	margin-left: 1.2rem !important;
+	color: white !important;
+}
+
+.nav-left{
+
+	font-size: 1.1rem;
+	margin-left: 1.2rem !important;
+	color: white !important;
+
+}
+body{
+	/* background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat-back.svg');
+	background-position: center;
+	background-repeat: repeat;
+	background-size: 10%;
+	background-color: #fff;
+	overflow-x: hidden;
+	transition: all 200ms linear; */
+	font-size: 100%;
+	background-color: black;
+	color: white;
+	background-color: rgb(255, 255, 255);
+	color: black;
+	font-family: 'Jost', sans-serif !important;	  
+	font-family: 'Source Sans Pro', sans-serif !important;
+/* filter: invert(100%)hue-rotate(180deg); */
+	background-color: rgb(248, 248, 248) !important;
+}
+
+nav{
+    font-family: 'Jost', sans-serif !important;	  
+}
+
+.jost{
+    font-family: 'Jost', sans-serif !important;	  
+}
+
+.grey-bg{
+	background-color: rgb(248, 248, 248);
+}
+

@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load humanize %}
+
+{% block content %}
+
+<style>
+        body {
+        color: black;
+        background-color: rgb(248, 248, 248);
+    }
+    .white-bg {
+        background-color: white;
+    }
+    .blue-text{
+      color: #00B0FF;
+    }
+
+    .blue-text:hover{
+      color: #00B0FF;
+      text-decoration: underline;
+    }
+
+    .border-class {
+        border-left: none;
+        border-top: none;
+        border-right: none;
+        border-radius: 0px;
+        outline-style: none !important;
+        box-shadow: none !important;
+        border-color: grey !important;
+        /* border-color: #00BFA5 !important; */
+    }
+</style>
+
+<div class="desktop-content">
+  <form action="{% url 'sign-up' %}" method="post">
+    {% csrf_token %}
+    <div class="modal-dialog shadow-none mobile-form"  >
+        <div class="modal-content shadow-none border-0 form-white-bg" style="border-radius: 0% !important;">
+          <div class="container text-center p-2 pb-0 mt-2">
+            <h5 class="modal-title blue-text font-weight-bold jost " id="exampleModalLabel">
+                {{"Sign UP"|upper}}
+            </h5>
+            <!-- <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button> -->
+          </div>
+ 
+          
+          
+          <div class="modal-body">
+
+            <div class="container text-center ">
+              {% if error %}
+                <div class="alert text-warning mx-auto w-75  font-weight-bolds jost">
+                    <i class="fas fa-exclamation-triangle"></i> {{error}}
+                </div>
+              {% endif %}
+            </div>
+
+              <div class="form mt-2 mb-2">
+                  <input type="text" id="inc-desc" oninput="" value="{{name}}" required name="name"
+                  class="form-control  border-class form-white-bg" placeholder="Name"
+                  >
+                </div>
+                <br>
+     
+                <div class="form mt-2 mb-2">
+                 <input type="text" id="inc-desc" oninput="" value="{{username}}" required name="username"
+                 class="form-control  border-class form-white-bg" placeholder="Username"
+                 >
+               </div>
+               <br>
+     
+               <div class="form mt-2 mb-2">
+                 <input type="password" id="inc-desc" oninput="" value="" required name="password"
+                 class="form-control  border-class form-white-bg" placeholder="Password"
+                 >
+               </div>
+               <br>
+     
+               <div class="form mt-2 mb-2">
+                 <input type="password" id="inc-desc" oninput="" value="" required name="confirm-password"
+                 class="form-control  border-class form-white-bg" placeholder="Confirm Password"
+                 >
+               </div>
+               <br>
+     
+          </div>
+     
+          <button class="btn btn-primary border-0 shadow-none jost"  
+          id="add-income-btn"  type="submit"
+          style="border-radius: 0%;background-color: #00B0FF;cursor: pointer;">
+              Submit
+          </button>
+     
+          </div>
+    </div>
+</form>
+
+<p class="pt-1  text-center">Already a member?
+  <a href="{% url 'login' %}" class="blue-text already-sign">Login</a>
+</p>
+</div>
+
+<div class="mobile-content" >
+  <div class="mt-5" style=""></div>
+  <form action="{% url 'sign-up' %}" method="post" style="">
+    {% csrf_token %}
+
+      <div class="modal-content shadow-none border-0 form-white-bg mx-auto"
+          style="border-radius: 0% !important;top: 55%;margin-top: 10%;width: 90%;">
+        <div class="container text-center p-2 pb-0 mt-2">
+          <h5 class="modal-title blue-text font-weight-bold jost modal-font " id="exampleModalLabel">
+              {{"Sign UP"|upper}}
+          </h5>
+          <!-- <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button> -->
+        </div>
+
+        <div class="mb-4"></div>
+        
+        <div class="modal-body ">
+
+          <div class="container text-center ">
+            {% if error %}
+              <div class="alert text-warning mx-auto w-100  font-weight-bolds jost modal-form-font">
+                  <i class="fas fa-exclamation-triangle"></i> {{error}}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="form mt-3 mb-3 p-2">
+              <input type="text" id="inc-desc" oninput="" value="{{name}}" required name="name"
+              class="form-control  border-class form-white-bg modal-form-font" placeholder="Name"
+              >
+          </div>
+          <br>
+          <div class="mb-4"></div>
+
+          <div class="form mt-2 mb-2">
+              <input type="text" id="inc-desc" oninput="" value="{{username}}" required name="username"
+              class="form-control  border-class form-white-bg modal-form-font" placeholder="Username"
+              >
+          </div>
+          <br>
+          <div class="mb-4"></div>
+
+          <div class="form mt-3 mb-3 p-2">
+              <input type="password" id="inc-desc" oninput="" value="" required name="password"
+              class="form-control  border-class form-white-bg modal-form-font" placeholder="Password"
+              >
+          </div>
+          <br>
+          <div class="mb-4"></div>
+
+          <div class="form mt-3 mb-3 p-2">
+              <input type="password" id="inc-desc" oninput="" value="" required name="confirm-password"
+              class="form-control  border-class form-white-bg modal-form-font" placeholder="Confirm Password"
+              >
+          </div>
+          <br>
+          <div class="mb-4"></div>
+        </div>
+    
+        <button class="btn btn-primary border-0 shadow-none jost  modal-btn-font"  
+        id="add-income-btn"  type="submit"
+        style="border-radius: 0%;background-color: #00B0FF;cursor: pointer;">
+            Submit
+        </button>
+    
+      </div>
+</form>
+<div class="mb-5"></div>
+<p class="pt-1  text-center modal-form-font">Already a member?
+  <a href="{% url 'login' %}" class="blue-text already-sign">Login</a>
+</p>
+</div>
+
+
+
+{% endblock content %}

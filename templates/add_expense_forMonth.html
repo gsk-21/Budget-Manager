@@ -1,0 +1,139 @@
+{% if user.is_authenticated %}
+
+<!-- Modal -->
+  <div class="modal top fade border-0" id="addExpense"
+   tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" 
+   data-mdb-keyboard="true" >
+    <div class="modal-dialog"  style="top: 15%;" >
+      <div class="modal-content border-0 form-white-bg" style="border-radius: 0% !important;">
+        <div class="container text-center p-2 pb-0 mt-2">
+          <h5 class="modal-title expense font-weight-bolds modal-font" id="exampleModalLabel">
+              {{"Expense"|title}} of {{month}} {{year}}
+          </h5>
+          <!-- <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button> -->
+        </div>
+
+        <div class="modal-body">
+            <div class="form mt-2 mb-2">
+                <input type="text" id="exp-desc" oninput="enableExpAddBtn()" value="" list="expenses"
+                class="form-control  border-class form-white-bg modal-form-font" placeholder="Description"
+                >
+                {% include '_expense_datalist.html' %}
+              </div>
+              <br>
+              <div class="mb-2"></div>
+              <div class="form mt-0 mb-2">
+                <input type="number" id="exp-amount" oninput="enableExpAddBtn()" value=""
+                class="form-control  border-class form-white-bg modal-form-font" placeholder="Amount"
+                >
+              </div>
+              <br>
+              <div class="mb-2"></div>
+              <div class="form mt-0 mb-4">
+                <!-- <label for="example-date-input" class="col col-form-label ml-5">Date</label> -->
+                  <input class="form-control date  border-class form-white-bg modal-form-font" type="date"  onchange="changeExpDate()"
+                  value="" id="expDate">
+              </div>
+
+        </div>
+        <div class="mb-2"></div>
+        <button class="btn btn-primary border-0 modal-btn-font"  id="add-expense-btn" disabled
+        style="border-radius: 0%;background-color: #E53935;">
+            Add
+        </button>
+
+          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" hidden>
+            Close
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+
+
+<script>
+    var year = "{{year}}"
+    var month = "{{month_num}}"
+    document.querySelector("#expDate").valueAsDate = new Date(year=year,month=month-1,date=15);
+    var expDesc = document.querySelector("#exp-desc").value
+    var expAmount = document.querySelector("#exp-amount").value
+    var expDate = document.querySelector("#expDate").value
+
+    var expDescField = document.querySelector("#exp-desc")
+    var expAmountField = document.querySelector("#exp-amount")
+
+    addExpBtn = document.querySelector("#add-expense-btn");
+
+    $('#add-expense-btn').on('click',function(event){
+        event.preventDefault();
+        addExpBtn.disabled = true
+        addExpBtn.textContent = "Adding Expense..."
+        console.log(expDesc,expAmount);
+        console.log(expDate);
+        add_expense(expDesc, expAmount,expDate)
+        expDesc = ''
+        expAmount = ''
+
+    })
+
+    function enableExpAddBtn(){
+        expDesc = document.querySelector("#exp-desc").value
+        expAmount = document.querySelector("#exp-amount").value
+        console.log(expDesc,expAmount);
+        if (expDesc!='' && expAmount!='') {
+            addExpBtn.disabled = false
+            return true
+        } else {
+            addExpBtn.disabled = true
+            return false
+        }
+    }
+
+    function add_expense(desc,amount,date){
+
+        $.ajax({
+            headers: { "X-CSRFToken": '{{csrf_token}}' },
+            url:"{% url 'add-item' %}",
+            type:"POST",
+            data:{
+                type:'exp',
+                description:desc,
+                amount:amount,
+                date:date
+            },
+
+            success: function (json) {
+                console.log(json);
+                location.reload()
+            },
+            error: function (xhr, errmsg, err) {
+                console.log("Error!")
+                console.log(xhr.status + ":" + xhr.responseText)
+            }
+
+        })
+
+    }
+
+    function changeExpDate(){
+      expDate = document.querySelector("#expDate").value
+    }
+
+    expDescField.addEventListener('keypress',function(e){
+          if (e.key === 'Enter' && expDesc!='') {
+            console.log("Enter pressed");
+            expAmountField.focus()
+          }
+        })
+
+    expAmountField.addEventListener('keypress',function(e){
+      if (e.key === 'Enter' && enableExpAddBtn()==true) {
+        addExpBtn.click()
+      }
+    })
+
+</script>
+
+
+{% endif %}

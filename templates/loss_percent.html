@@ -1,0 +1,28 @@
+<span class="expense-percent white-row-bg pt-1 pb-1"
+ id="exp-percent-{{expense.id}}">{{forloop.counter|add:"24"}}%
+</span>
+
+<script>
+    var total_income = Number("{{total_income}}")
+    var total_expense = Number("{{total_expense}}")
+    var expense = Number("{{expense.amount}}")
+    var percent = 0
+
+    expPercent = document.querySelector("#exp-percent-{{expense.id}}")
+    console.log(total_expense);
+    if(total_income<=0){
+        percent = (expense/total_expense)*100
+    }else{
+        percent = (expense/total_income)*100
+    }
+    
+
+    if(percent<1){
+        // console.log(percent)
+        percent=percent.toFixed(2)
+    }else{
+        percent = Math.round(percent)
+    }
+
+    expPercent.textContent = percent+"%"
+</script>

@@ -1,0 +1,98 @@
+{% load humanize %}
+
+<div
+  class="modal fade mt-5"
+  id="removeExpMobile_{{expense.slug}}"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+
+
+  <div class="modal-dialog modal-lg" style="top: 25%;" >
+    <div class="modal-content form-white-bg modal-font" style="border-radius: 0% !important;">
+
+      <div class="modal-body text-center">
+          <div class="container p-3 mt-3 mb-3  expense ">
+            <h3 class="font-weight-bold modal-font">
+                {{expense.description|title}}
+            </h3>
+            <span class="font-weight-normal mt-3" >
+                ({{expense.datetime | naturalday | title}})
+            </span>
+          </div>
+
+
+          <div class="container   ">
+            <h3 class="font-weight-bolds modal-font">
+                 
+            </h3>
+          </div>
+
+          <div class="mt-2"></div>
+
+          <div class="container mt-4 mb-4 text-white modal-font ">
+            <h3 class="modal-font  jost">
+                {{expense.amount}}
+            </h3>
+          </div>
+      </div>
+
+      <div class="mt-2"></div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+      <button class="btn btn-primary border-0 modal-btn-font jost"   id="remExpMobileBtn_{{expense.slug}}" 
+      data-slug="{{expense.slug}}"
+      style="border-radius: 0%;background-color: #E53935;">
+          Remove
+      </button>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+<script>
+        removeExpBtn = document.querySelector("#remExpMobileBtn_{{expense.slug}}")
+        removeExpBtn.addEventListener('click', function () {
+            this.disabled = true
+            console.log("removing expense....");
+            slug = this.getAttribute("data-slug")
+            console.log(slug)
+            console.log(removeExpBtn);
+            removeExpBtn.disabled = true
+            this.textContent = "Removing Expense..."
+            remove_expense(slug)
+        })
+
+    function remove_expense(slug) {
+
+        $.ajax({
+            headers: { "X-CSRFToken": '{{csrf_token}}' },
+            url: "{% url 'remove-item' %}",
+            type: "POST",
+            data: {
+                type: 'exp',
+                slug:slug
+            },
+
+            success: function (json) {
+                console.log(json);
+                location.reload()
+            },
+            error: function (xhr, errmsg, err) {
+                console.log("Error!")
+                console.log(xhr.status + ":" + xhr.responseText)
+            }
+
+        })
+
+    }
+
+</script>

@@ -1,0 +1,732 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load humanize %}
+
+{% block content %}
+
+<!-- <style>
+    body {
+        color: black;
+        background-color: rgb(248, 248, 248);
+    }
+
+    .add-sm-btn:hover{
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    .add-new-btn:hover{
+
+    }
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    .row-bg {
+        background-color: white;
+    }
+
+    .white-row-bg {
+        background-color: white;
+    }
+
+    .income,
+    .income:hover {
+        color: #00BFA5;
+        /* color:#1DE9B6 ; */
+    }
+
+    .expense,
+    .expense:hover {
+        /* color: #FF1744; */
+        /* color: #D50000; */
+        color: #FF5252;
+        color: #E53935;
+    }
+
+    .heading {
+        /* font-weight: bold; */
+        font-size: 1.15em;
+    }
+
+    .expense-percent,
+    .available-percent {
+        font-size: .5em;
+    }
+
+    .head {
+        font-size: 1.5rem;
+    }
+
+    .amt {
+        font-size: .95rem;
+        font-weight: bold;
+    }
+
+    .content {
+        font-size: .95rem;
+        cursor: pointer;
+    }
+
+    .content:hover {
+        /* background-color: #00BFA5; */
+
+    }
+
+    .border-class {
+        border-left: none;
+        border-top: none;
+        border-right: none;
+        border-radius: 0px;
+        outline-style: none !important;
+        box-shadow: none !important;
+        border-color: grey !important;
+        /* border-color: #00BFA5 !important; */
+    }
+
+    .grayout {
+        opacity: 0.4;
+        /* Real browsers */
+        filter: alpha(opacity=80);
+        /* MSIE */
+    }
+
+    .jost {
+        font-family: 'Jost', sans-serif !important;
+    }
+</style> -->
+
+
+{% include 'add_income_forMonth.html' %}
+
+{% include 'add_expense_forMonth.html' %}
+
+
+
+<div class="containers mx-auto" style="width: 95%;">
+    <div class="container-fluid mt-0 ">
+
+        <div class="row mt-3 ">
+            <div class="col-6 col-lg-6  col-md-12 desktop-content">
+                <div class="row  head text-center">
+                    <div class="col-11 col-lg-11 col-md-12 white-row-bg ">
+                        <div class="jost font-weight-bolds mb-2 mt-3 month-savings ">
+                            {{month}} {{year}}
+                        </div>
+
+                        <div class="income savings font-weight-bolds mb-3 month-savings word-wrap" >
+                            <i class="fas fa-coins"></i> {{" Savings " | title}} -
+                            <span style="margin-right: 5px;">₹</span>{{savings}}
+                            <span class="available-percent white-row-bg" id="whole-available-percent">
+                            </span>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-6  col-md-12 mobile-content">
+                <div class="row  head text-center">
+                    <div class="col-11 col-lg-11 col-md-12 white-row-bg ">
+                        <div class="jost font-weight-bolds mb-2 mt-3 month-savings p-3 pt-4 pb-4">
+                            {{month}} {{year}}
+                        </div>
+
+                        <div class="income savings font-weight-bolds mb-3 month-savings pb-5 word-wrap" >
+                            <i class="fas fa-coins"></i> {{" Savings " | title}} -
+                            <span>
+                                <span style="margin-right: 8px;">₹</span>{{savings}}</span>
+                            <span class="available-percent white-row-bg" id="whole-available-percent">
+                            </span>
+    
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-5"></div>
+            </div>
+            <div class="d-none d-md-block d-lg-none mt-3">
+            </div>
+            <div class="col-6 col-lg-6  col-md-12 head">
+                <div class="row desktop-content">
+                    <div class="col-12 mb-2 ">
+    
+                        <div class="row total-inc-exp">
+                            <div class="col-6 col-lg-5 font-weight-bolds px-5 pt-2 pb-2 jost 
+                            white-row-bg ">
+                                {{"Total Income" | title}}
+                            </div>
+                            <div class="col-5 col-lg-6 income  pt-2 pb-2 white-row-bg word-wrap" >
+                                <span style="margin-right: 5px;">+</span><span style="margin-right: 5px;">₹</span>{{total_income|truncatechars:18}}
+                            </div>
+                            <div class=" col-1 col-lg-1 income pt-2 pb-2 text-center">
+                                <span class="mx-auto arrows">
+                                    <i class="fas fa-arrow-up"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="col-12  mt-3 ">
+                        <div class="row total-inc-exp">
+                            <div class="col-6 col-lg-5 font-weight-bolds px-5 pt-2 pb-2 jost white-row-bg">
+                                {{"Total Expense" | title}}
+                            </div>
+                            <div class="col-5 col-lg-6 expense pt-2 pb-2 white-row-bg word-wrap" >
+                                 <span style="margin-right: 5px;">-</span><span style="margin-right: 5px;">₹</span>{{total_expense|truncatechars:18}}
+                                <span class="expense-percent white-row-bg" id="whole-exp-percent">
+                                </span>
+                            </div>
+                            <div class="col-1 col-lg-1 pt-2 pb-2 expense text-center">
+                                <span class="mx-auto arrows ">
+                                    <i class="fas fa-arrow-down"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mobile-content">
+                    <div class="row ">
+                        <div class="col-6 " style="border-right: 0px solid rgb(248, 248, 248);">
+        
+                            <div class="row total-inc-exp "
+                            style="border:1px solid #00BFA5;
+                                    border-left:5px solid #00BFA5;
+                                    border-right: 0px solid #00BFA5">
+                                <div class="col-12 font-weight-bolds jost p-3 pt-4
+                                white-row-bg ">
+                                    {{"Total Income" | title}}
+                                    <span class="mx-auto arrows income text-center float-end pt-3">
+                                        <i class="fas fa-arrow-up"></i>
+                                    </span>
+                                </div>
+                                <div class="col-12  income white-row-bg p-3 pb-4 word-wrap">
+                                    <span style="margin-right: 5px;margin-left: 8px;">₹</span>{{total_income|truncatechars:18}}
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="col-6   " style="border-left: 0px solid rgb(248, 248, 248);">
+                            <div class="row total-inc-exp" 
+                                    style="border:1px solid #E53935;
+                                            border-right:5px solid #E53935;
+                                            border-left: 1px solid #E53935;">
+                                <div class="col-12 font-weight-bolds  jost p-3 pt-4
+                                            white-row-bg">
+                                    {{"Total Expense" | title}}
+                                    <span class="mx-auto arrows expense text-center float-end pt-3">
+                                        <i class="fas fa-arrow-down"></i>
+                                    </span>
+                                </div>
+                                <div class="col-12  expense white-row-bg p-3 pb-4 word-wrap" style="">
+                                    <span style="margin-right: 5px;margin-left: 8px;">₹</span>{{total_expense|truncatechars:18}}
+                                    <span class="expense-percent white-row-bg" id="whole-exp-percent-mobile">
+                                    </span>
+                                </div>
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    
+        <div class="row mt-4 desktop-content">
+            {% if incomes|length != 0 %}
+                <div class="col-6  ">
+                    <div class="row">
+                        <div class="col-6 income heading jost">
+                            {{"INCOMES" |upper}}
+                        </div>
+                        <div class="col-5 ">
+                            <a class="float-end income add-sm-btn "
+                             id="addNewIncome" data-mdb-toggle="modal" data-mdb-target="#addIncome">
+                                Add
+                            </a>
+                        </div>
+                        <div class="col-1">
+    
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-6"></div>
+            {% endif %}
+    
+            {% if expenses|length != 0 %}
+                <div class="col-6  ">
+                    <div class="row">
+                        <div class="col-6 expense heading jost">
+                            {{"Expenses" |upper}}
+                        </div>
+                        <div class="col-5 ">
+                            <a class="float-end expense add-sm-btn" data-mdb-toggle="modal" data-mdb-target="#addExpense">
+                                Add
+                            </a>
+                        </div>
+                        <div class="col-1">
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-6"></div>
+            {% endif %}
+        </div>
+    
+    
+        <div class="row jost mt-3 desktop-content">
+            <div class="col-6 ">
+                {% if incomes|length != 0 %}
+                <div class="row font-weight-bold mb-2">
+                    <div class="col-2 ">
+                        No.
+                    </div>
+                    <div class="col-3 ">
+                        Date
+                    </div>
+                    <div class="col-3 ">
+                        Description
+                    </div>
+                    <div class="col-3 ">
+                        Amount ( ₹ )
+                    </div>
+                    <div class="col-1 "></div>
+                    <br>
+                </div>
+                {% else %}
+                <div class="row text-center income jost">
+                    <div class="col-12">
+                    </div>
+                </div>
+    
+                {% endif %}
+            </div>
+    
+            <div class="col-6 ">
+                {% if expenses|length != 0 %}
+                <div class="row font-weight-bold mb-2">
+                    <div class="col-2">
+                        No.
+                    </div>
+                    <div class="col-3 ">
+                        Date
+                    </div>
+                    <div class="col-3 ">
+                        Description
+                    </div>
+                    <div class="col-3">
+                        Amount ( ₹ )
+                    </div>
+                    <div class="col-1 "></div>
+                    <br>
+                </div>
+                {% else %}
+                <div class="row text-center income jost">
+                    <div class="col-12">
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+    
+        </div>
+    
+        <div class=" mt-1"></div>
+    
+    </div>
+    
+    <div class="container-fluid desktop-content">
+        <div class="row row-font">
+            {% if incomes|length != 0 %}
+            <!-- Income -->
+            <div class="col-6 row-font">
+                {% for income in incomes %}
+                <div class="row content incomeContent word-wrap" id="incContent_{{income.slug}}" data-slug="{{income.slug}}">
+    
+                    <div class="col-2 font-weight-bold  white-row-bg pt-2 pb-2 ">
+                        {{forloop.counter}}
+                    </div>
+                    <div class="col-3 white-row-bg pt-2 pb-2">
+                        {{income.datetime | naturalday | title}}
+                    </div>
+                    <div class="col-3 white-row-bg pt-2 pb-2">
+                        {{income.description}}
+                    </div>
+                    <div class="col-3 income white-row-bg pt-2 pb-2 amt jost">
+                        <span style="margin-right: 5px;">+</span>{{income.amount}}
+                    </div>
+                    <div class="col-1 pt-1 income ">
+                        {% include 'remove-income.html' %}
+                    </div>
+                    <br>
+                </div>
+                <div class=" mt-1"> </div>
+                {% endfor %}
+            </div>
+            {%else%}
+            <div class="col-6">
+                <div class="row text-center income jost">
+                    <div class="col-12">
+                        <div class="mb-3 no-inc-exp" >
+                            {{"No Incomes for this month" | title}}.
+                        </div> 
+                    <div class="mt-2">
+                        
+                        {% if user.is_authenticated %}
+                            <a class="btn incomes shadow-0 add-new-btn hoverable"
+                            style="background-color: #00BFA5;color: white;border-radius: 0%;"
+                            data-mdb-toggle="modal" data-mdb-target="#addIncome">
+                                Add New Income
+                            </a>
+                        {% else %}
+                        <a class="btn incomes shadow-0 add-new-btn hoverable" href="{% url 'login' %}"
+                        style="background-color: #00BFA5;color: white;border-radius: 0%;">
+                            Add New Income
+                        </a>
+                        {% endif %}
+                            
+                    </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+    
+            {% if expenses|length != 0 %}
+                <!-- Expense -->
+                <div class="col-6 row-font">
+                    {% for expense in expenses %}
+                    <div class="row content expenseContent word-wrap" id="expContent_{{expense.slug}}" data-slug="{{expense.slug}}">
+                        <div class="col-2 font-weight-bold white-row-bg pt-2 pb-2">
+                            {{forloop.counter}}
+                        </div>
+                        <div class="col-3 white-row-bg pt-2 pb-2">
+                            {{expense.datetime | naturalday | title}}
+                        </div>
+                        <div class="col-3 white-row-bg pt-2 pb-2">
+                            {{expense.description}}
+                        </div>
+                        <div class="col-3 expense white-row-bg pt-2 pb-2 amt jost">
+                            <span style="margin-right: 5px;">-</span>{{expense.amount}}
+                            {% include 'loss_percent.html' %}
+                        </div>
+                        <div class="col-1 pt-1 expense ">
+                            {% include 'remove-expense.html' %}
+                        </div>
+                        <br>
+                    </div>
+                    <div class=" mt-1"></div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="col-6 ">
+                    <div class="row text-center expense jost">
+                        <div class="col-12">
+                            <div class="mb-3 no-inc-exp" >
+                                {{"No Expenses for this month" | title}}.
+                            </div> 
+                        <div class="mt-2">
+                            
+                            {% if user.is_authenticated %}
+                                <a class="btn incomes shadow-0 add-new-btn hoverable"
+                                   style="background-color: #E53935;color: white;border-radius: 0%;"
+                                   data-mdb-toggle="modal" data-mdb-target="#addExpense">
+                                    Add New Expense
+                                </a>
+                            {% else %}
+                            <a class="btn incomes shadow-0 add-new-btn hoverable" href="{% url 'login' %}"
+                               style="background-color: #E53935;color: white;border-radius: 0%;">
+                                Add New Expense
+                            </a>
+                            {% endif %}
+                                
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+    
+    
+        </div>
+    </div>
+
+    <div class="row mt-4 ">
+    </div>
+<br>
+
+    <div class="container-fluid mobile-content" >
+
+        <div class="row row-font">
+
+            <!-- Heading -->
+            {% if incomes|length != 0 %}
+                <div class="col-12  ">
+                    <div class="row mt-1 mb-3">
+                        <div class="col-6 income heading jost font-weight-bolds">
+                            {{"INCOMES" |upper}}
+                        </div>
+                        <div class="col-5">
+                            <a class="float-end income add-sm-btn "
+                            id="addNewIncome" data-mdb-toggle="modal" data-mdb-target="#addIncome">
+                                Add
+                            </a>
+                        </div>
+                        <div class="col-1">
+
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12"></div>
+            {% endif %}
+
+            {% if incomes|length != 0 %}
+            <!-- Income -->
+            <div class="col-12 row-font word-wrap">
+                {% for income in incomes %}
+                
+                <div class="row content incomeContent " 
+                data-mdb-toggle="modal"
+                data-mdb-target="#removeIncMobile_{{income.slug}}"
+                id="incContent_mobile_{{income.slug}}" data-slug="{{income.slug}}" 
+                style="border:0px solid #00BFA5;border-left:5px solid #00BFA5;">
+                    
+
+                <div class="col-1 white-row-bg"></div>
+                <div class="col-5 white-row-bg   font-weight-bold text-centers " 
+                style="border-right:2px solid #00BFA5;">
+                        <div class="container  p-3">
+                            {{income.description}}
+                        </div>
+                </div>
+                <div class="col-6  income white-row-bg pt-2 pb-2 amt jost">
+                    <div class="container p-3">
+                        <span style="margin-right: 8px;">+</span>{{income.amount}}
+                    </div>
+                </div>
+                {% include 'remove_income_mobile.html' %}
+                </div>
+                <div class=" mb-3"></div>
+                {% endfor %}
+            </div>
+            {%else%}
+
+            <div class="col-12">
+                <div class="row text-center income jost">
+                    <div class="col-12">
+                        <div class="mb-3 no-inc-exp" >
+                            {{"No Incomes for this month" | title}}.
+                        <div class="m-5"></div>
+                        
+                        {% if user.is_authenticated %}
+                            <a class="btn incomes shadow-0 add-new-btn hoverable"
+                            style="background-color: #00BFA5;color: white;border-radius: 0%;"
+                            data-mdb-toggle="modal" data-mdb-target="#addIncome">
+                                Add New Income
+                            </a>
+                        {% else %}
+                        <a class="btn incomes shadow-0 add-new-btn hoverable" href="{% url 'login' %}"
+                        style="background-color: #00BFA5;color: white;border-radius: 0%;">
+                            Add New Income
+                        </a>
+                        {% endif %}
+                            
+                    </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+    
+            <div class="mt-5"></div>
+            <!-- Heading -->
+            {% if expenses|length != 0 %}
+                <div class="col-12  ">
+                    <div class="row">
+                        <div class="col-6 expense heading jost mt-3 mb-3">
+                            {{"Expenses" |upper}}
+                        </div>
+                        <div class="col-5 ">
+                            <a class="float-end expense add-sm-btn" data-mdb-toggle="modal" data-mdb-target="#addExpense">
+                                Add
+                            </a>
+                        </div>
+                        <div class="col-1">
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12"></div>
+            {% endif %}
+
+            {% if expenses|length != 0 %}
+                <!-- Expense -->
+                <div class="col-12 row-font">
+                    {% for expense in expenses %}
+                    <div class="row content expenseContent" 
+                    data-mdb-toggle="modal"
+                    data-mdb-target="#removeExpMobile_{{expense.slug}}"
+                    id="expContent_{{expense.slug}}" data-slug="{{expense.slug}}"
+                    style="border:0px solid #E53935;border-left:5px solid #E53935;">
+
+                        <!-- <div class="col-4 white-row-bg  p-2 text-center">
+                            {{expense.datetime | naturalday | title}}
+                            </div> -->
+                        <div class="col-1 white-row-bg"></div>
+                        <div class="col-5 white-row-bg   font-weight-bold text-centers "
+                                style="border-right:2px solid #E53935;">
+                            <div class="container  p-3">
+                                {{expense.description}}
+                            </div>
+                        </div>
+                        <div class="col-6 expense white-row-bg pt-2 pb-2 amt jost">
+                            <div class="container  p-3">
+                                <span style="margin-right: 8px;">-</span>{{expense.amount}}
+                                {% include '_mobile_loss_percent.html' %}
+                            </div>
+                        </div>
+                        {% include 'remove_expense_mobile.html' %}
+                    </div>
+                    <div class=" mb-3"></div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                 <div class="m-5"></div>
+                <div class="col-12 ">
+                    <div class="row text-center expense jost">
+                        <div class="col-12">
+                            <div class="mb-5 no-inc-exp" >
+                                {{" No Expenses for this month" | title}}.
+                                
+                            <div class="m-5"></div>
+                            {% if user.is_authenticated %}
+                                <a class="btn incomes shadow-0 add-new-btn hoverable"
+                                   style="background-color: #E53935;color: white;border-radius: 0%;"
+                                   data-mdb-toggle="modal" data-mdb-target="#addExpense">
+                                    <span class="p-3">
+                                        Add New Expense
+                                    </span>
+                                </a>
+                            {% else %}
+                            <a class="btn incomes shadow-0 add-new-btn hoverable" href="{% url 'login' %}"
+                               style="background-color: #E53935;color: white;border-radius: 0%;">
+                               <span class="p-3">
+                                    Add New Expense
+                                </span>
+                            </a>
+                            {% endif %}
+                                
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+    
+    
+        </div>
+
+        <div class="mb-5">
+            <br><br><br><br><br>
+        </div>
+    </div>
+
+
+
+</div>
+<br><br>
+
+<script>
+    incDesc = ''
+    incAmount = ''
+    expDesc = ''
+    expAmount = ''
+
+    var wholeExpPercent = document.querySelector("#whole-exp-percent")
+    var wholeAvailablePercent = document.querySelector("#whole-available-percent")
+    wholeExpPercentMobile = document.querySelector("#whole-exp-percent-mobile")
+    var total_income = Number("{{total_income}}")
+    var total_expense = Number("{{total_expense}}")
+    var savings = Number("{{savings}}")
+
+    var percent = 0
+
+    percent = (total_expense / total_income) * 100
+
+    if (percent < 1) {
+        percent = percent.toFixed(2)
+    } else {
+        percent = Math.round(percent)
+    }
+
+    if (isNaN(percent)) {
+        percent = 0
+    }
+
+    wholeExpPercent.textContent = percent + "%"
+    wholeExpPercentMobile.textContent = percent+"%"
+    if (percent<=100) {
+        wholeAvailablePercent.textContent = 100 - percent + "%"
+    } else {
+        wholeAvailablePercent.textContent = "0%"
+    }
+
+    if(total_income<=0){
+        wholeExpPercent.textContent =   "100%"
+        wholeExpPercentMobile.textContent = "100%"
+        wholeAvailablePercent.textContent = "0%"
+    }
+    if(total_expense<=0){
+        wholeExpPercent.textContent =   "0%"
+        wholeExpPercentMobile.textContent = "0%"
+    }
+
+</script>
+
+<script>
+    incomeList = document.querySelectorAll(".incomeContent")
+    expenseList = document.querySelectorAll(".expenseContent")
+
+    for (const income of incomeList) {
+        income.addEventListener('mouseover', function () {
+            slug = income.getAttribute("data-slug")
+            slug = "#incCrossSpan_" + slug
+            document.querySelector(slug).hidden = false
+        })
+
+        income.addEventListener('mouseout', function () {
+            slug = income.getAttribute("data-slug")
+            slug = "#incCrossSpan_" + slug
+            document.querySelector(slug).hidden = true
+        })
+
+    }
+
+
+    for (const expense of expenseList) {
+        expense.addEventListener('mouseover', function () {
+            slug = expense.getAttribute("data-slug")
+            slug = "#expCrossSpan_" + slug
+            document.querySelector(slug).hidden = false
+        })
+
+        expense.addEventListener('mouseout', function () {
+            slug = expense.getAttribute("data-slug")
+            slug = "#expCrossSpan_" + slug
+            document.querySelector(slug).hidden = true
+        })
+
+    }
+
+    // expCrossSpan_{{expense.slug}}
+</script>
+
+
+    
+{% endblock content %}
