@@ -24,7 +24,6 @@ def formated(num):
 # date.strftime('%B')
 def home(request):
     date = timezone.now()
-    print(date.year)
     context = initialize()
     if request.user.is_authenticated:
         user = request.user
@@ -135,7 +134,7 @@ def monthly_budget(request):
                     if total_income > 0 and total_expense > 0:
                         income_percent = 100
                         if int(total_income) > 0:
-                            expense_percent = round(((int(total_expense) / int(total_income)) * 100), 2)
+                            expense_percent = int(round(((int(total_expense) / int(total_income)) * 100), 0))
                         else:
                             expense_percent = 0
                         savings_percent = 100 - expense_percent
@@ -160,11 +159,12 @@ def monthly_budget(request):
                                    'income_percent': income_percent
                                    }
                     budget_list.append(budget_dict)
+            budget_list.reverse()
             # print(year, "  -  ", yearly_income, "  ", yearly_expense, "  ", yearly_savings)
             if (yearly_expense < yearly_income):
                 yearly_inc_percent = 100
-                yearly_exp_percent = round(((int(yearly_expense) / int(yearly_income)) * 100), 2)
-                yearly_savings_percent = formated(100 - yearly_exp_percent)
+                yearly_exp_percent = int(round(((int(yearly_expense) / int(yearly_income)) * 100),0))
+                yearly_savings_percent = (100 - yearly_exp_percent)
             yearly_total[year] = {'yearly_income': yearly_income,
                                   'yearly_expense': yearly_expense,
                                   'yearly_savings': yearly_savings,

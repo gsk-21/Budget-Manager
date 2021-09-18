@@ -50,7 +50,7 @@
 		text-decoration: underline;
 	}
 </style>
-  
+
 </head>
 
 <body class="light-bg">
@@ -60,11 +60,11 @@
 
     <div class="d-flex  ">
       <a class="navbar-brand mr-0  navbar-brand-custom font-weight-bold text-black" href="{% url 'home'%}">
-        <h3>  {{"Budget Manager "|title}} 
-        </h3> 
+        <h3>  {{"Budget Manager "|title}}
+        </h3>
       </a>
     </div>
-    
+
       <ul class="navbar-nav ml-auto nav-flex-icons float-end">
 
         <li class="nav-item">
@@ -74,7 +74,7 @@
             </span>
           </a>
         </li>
-    
+
         <li class="nav-item">
           <a class="nav-link waves-effect waves-light text-black"  href="{% url 'sign-up' %}">
             <span class="font-weight-bold" style="font-size: .8em;">
@@ -82,16 +82,16 @@
             </span>
           </a>
         </li>
-    
 
-       
+
+
       </ul>
 
       <button class="navbar-toggler  " type="button" data-toggle="collapse" data-target="#collapsingNavbar">
         <i class="fa fa-bars"></i>
       </button>
 
- 
+
 
   </nav> -->
 
@@ -100,11 +100,11 @@
 	<span class=" p-1">
 		<i class="fas fa-coins "></i>
 	</span>
-	  <a class="navbar-brand navbar-brand-custom font-weight-bold nav-link-black-text" 
-	  style="font-size: 1.2em;" 
+	  <a class="navbar-brand navbar-brand-custom font-weight-bold nav-link-black-text"
+	  style="font-size: 1.2em;"
 	  href="{% url 'home' %}">
 	  <span class="mr-4">
-		{{"Budget Manager"|title}} 
+		{{"Budgety"|title}}
 	</span>
 	</a>
 	  <button
@@ -127,7 +127,7 @@
 			Home</a>
 		  </li>
 		  {% if user.is_authenticated %}
-		 
+
 			<li class="nav-item">
 				<a class="nav-link nav-link-black-text
 				{% if request.resolver_match.url_name == 'monthly-budget' %}active{% endif %}
@@ -142,33 +142,34 @@
 		<ul class="navbar-nav ">
 
 			{% if user.is_authenticated %}
-		
+
 			<li class="nav-item " >
 				<a class="nav-link nav-link-black-text theme-switch" href="#" id="theme-switch">
-					<i class="far fa-moon"></i>
+					<!--<i class="far fa-moon"></i>-->
+					<i class="fas fa-adjust"></i>
 				</a>
-			</li>	
+			</li>
 
 			<li class="nav-item ">
 				<a class="nav-link nav-link-black-text" href="#">{{user.first_name|title|truncatechars:50}}</a>
-			</li>	
-	
-	
+			</li>
+
+
 			<li class="nav-item">
 				<a class="nav-link nav-link-black-text" href="{% url 'logout' %}">Logout</a>
-			</li>	
-	
+			</li>
+
 			{% else %}
-	
+
 			<li class="nav-item">
 				<a class="nav-link nav-link-black-text
-				{% if request.resolver_match.url_name == 'login' %}active{% endif %}" 
+				{% if request.resolver_match.url_name == 'login' %}active{% endif %}"
 				href="{% url 'login' %}">Login</a>
-			</li>	
+			</li>
 			{% endif %}
 		</ul>
 
-			
+
 	  </div>
 	</div>
   </nav>
@@ -181,15 +182,30 @@
 
 	<div class="navbar-header bg-successs">
 		<div class="container bg-dangers m-2">
-			<a class="navbar-brand nav-link-black-text navbar-brand-custom " 
+			<a class="navbar-brand nav-link-black-text navbar-brand-custom "
 			href="{% url 'home' %}" id="user-name-container">
 			<span style="margin-left: 5%;">
 				<i class="fas fa-coins "></i>
-			</span>	
-			<span style="margin-left: 5%;">
-				Budget Manager 
-			</span>		
-		</a>	
+			</span>
+			<span style="margin-left: 10%;">
+				Budgety
+			</span>
+
+			{% if user.is_authenticated %}
+
+			<span style="margin-left:85%;" class="" id="theme-switch-mobile">
+					<!-- <i class="far fa-moon" id="mobile-moon"></i>  -->
+					<!-- <i class="fa fa-toggle-off" aria-hidden="true"></i> -->
+					<i class="fas fa-adjust"></i>
+
+			</span>
+
+			{% endif %}
+
+		</a>
+
+
+
 		</div>
 
 	</div>
@@ -208,6 +224,7 @@
 	>
 	<div class="container bg-successs p-5">
 		<span class="nav-link-black-text " style="margin-right: 50% !important;font-size: 4rem;">
+
 			<i class="fas fa-bars"></i>
 		</span>
 	</div>
@@ -217,37 +234,35 @@
 		<div class="container">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				{% if user.is_authenticated %}
-				
+                <br>
 				<li class="nav-item">
 					<a class="nav-link nav-link-black-text
 					{% if request.resolver_match.url_name == 'monthly-budget' %}active{% endif %}
 					text-black" href="{% url 'monthly-budget' %}">
-						My Budgets ( {{user.first_name|title}} )
+						My Budgets 
 					</a>
+					<br>
 				</li>
-		
+
 				{% endif %}
 			</ul>
-		
-			<ul class="navbar-nav ">	
-				<li class="nav-item " >
-					<a class="nav-link nav-link-black-text theme-switch" href="#" id="theme-switch-mobile">
-						Switch Theme <i class="far fa-moon" id="mobile-moon"></i> 
-					</a>
-				</li>	
+
+			<ul class="navbar-nav ">
+
 				{% if user.is_authenticated %}
 
 				<li class="nav-item">
 					<a class="nav-link nav-link-black-text" href="{% url 'logout' %}">Logout</a>
-				</li>	
-		
+					<br><br>
+				</li>
+
 				{% else %}
-		
+
 				<li class="nav-item">
 					<a class="nav-link nav-link-black-text
-					{% if request.resolver_match.url_name == 'login' %}active{% endif %}" 
+					{% if request.resolver_match.url_name == 'login' %}active{% endif %}"
 					href="{% url 'login' %}">Login</a>
-				</li>	
+				</li>
 				{% endif %}
 			</ul>
 		</div>
@@ -260,10 +275,10 @@
 		<li class="nav-item">
 			<div class="container p-5">
 				<a class="nav-link nav-link-black-text
-				{% if request.resolver_match.url_name == 'login' %}active{% endif %}" 
+				{% if request.resolver_match.url_name == 'login' %}active{% endif %}"
 				href="{% url 'login' %}">Login</a>
 			</div>
-		</li>	
+		</li>
 	</ul>
 
 	{%endif%}
@@ -286,7 +301,7 @@
   {% block content %}
 
   {% endblock content %}
-  
+
   {% include 'styling.html' %}
 </body>
 
