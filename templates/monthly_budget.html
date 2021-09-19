@@ -24,7 +24,45 @@
 
 {% endif %}
 
+<div class="mobile-content row fixed-bottom grey-bgs  white-row-bg container-fluid mx-auto p-2 text-center bottom-fixed-row">
+            
+    <div class="row font-weight-bold jost m-1 pt-2 income">
+        <div class="col-4 text-center pipe-black" >
+            <span class="income">
+                <i class="fas fa-arrow-up"></i>
+            </span> 
+            Income
+            
+        </div>
+        <div class="col-4 text-center savings pipe-black">
+            <span class="savings">
+                <i class="fas fa-hand-holding-usd"></i> 
+            </span>
+            Savings
+        </div>
+        <div class="col-4 text-center expense"> 
+            <span class="expense">
+                <i class="fas fa-arrow-down"></i>
+            </span>
+             Expense
+        </div>
+    </div>
+    <div class="row font-weight-bolds jost m-3 bottom-amount pb-4">
 
+        <div class="col-4 text-center incomes" >
+            ₹ {{overall_income}}
+        </div>
+
+        <div class="col-4 text-center saving">
+            ₹ {{overall_savings}}
+        </div>
+
+        <div class="col-4 text-center expenses">
+            ₹ {{overall_expense}}
+        </div>
+    </div>
+
+</div>
 
 
 <div class="container white-row-bgs desktop-content">
@@ -192,7 +230,8 @@
         <div class="row font-weight-bold jost budget-row-heading ">
 
             <div class="col-12 pt-3 pb-3">
-                <div class="row font-weight-bolds mb-2 text-centers ">
+                <div class="row font-weight-bolds mb-2 text-centers " 
+                style="font-size: 2.75rem !important;">
                     <div class="col-3 ">
                         
                         <span class="p-3">
@@ -217,43 +256,45 @@
 
         {% for months in value.0 %}
 
-            <div class="row white-row-bg budget-row-light budget-row pt-3 pb-3" style="cursor: pointer;" >
+            <div class="row white-row-bg budget-row-light budget-row pt-3 pb-3  " 
+            style="cursor: pointer;
+                    " >
                 <a href="{% url 'single-month-budget' month=months.month_number year=key %}">
-                    <div class="col-12 word-wrap">
-                        <div class="row font-weight-bolds mb-2 mt-2 text-centers" >
-                            <div class="col-3 font-weight-bold text-black " >
-                                <span class="p-3">
+                    <div class="col-12 word-wrap" style="">
+                        <div class="row font-weight-bold mb-2 mt-2 text-centers " >
+                            <div class="col-3 font-weight-bold text-black" >
+                                <span class="p-3" >
                                     {{months.month}}
                                 </span>
                                 
                             </div>
-                            <div class="col-3 income ">
+                            <div class="col-3 income monthly-font" >
                                 {% if months.income == '-' %}
                                 <span class="text-center ">-</span>
                                 {% else %}
-                                <span style="margin-right: 5px;">₹</span>{{months.income}}
+                                <span style="margin-right: 5px;"></span>{{months.income}}
                                     <!-- <span class="expense-percent  pt-1 pb-1">
                                         {{months.income_percent}}%
                                 </span> -->
                                 {% endif %}
 
                             </div>
-                            <div class="col-3 expense ">
+                            <div class="col-3 expense monthly-font">
                                 {% if months.expense == '-' %}
                                     <span class="ml-5">-</span>
                                 {% else %}
-                                <span style="margin-right: 5px;">₹</span>{{months.expense}}
+                                <span style="margin-right: 5px;" class=""></span>{{months.expense}}
                                     <span class="expense-percent  pt-1 pb-1">
                                         {{months.expense_percent|truncatechars:5}}%
                                 </span>
                                 {% endif %}
 
                             </div>
-                            <div class="col-3 font-weight-bolds text-blacks savings">
+                            <div class="col-3 font-weight-bolds text-blacks savings monthly-font">
                                 {% if months.savings == '-' %}
                                     <span class="text-center ">-</span>
                                 {% else %}
-                                <span style="margin-right: 5px;">₹</span>{{months.savings}}
+                                <span style="margin-right: 5px;"></span>{{months.savings}}
                                     <span class="savings-percent  pt-1 pb-1">
                                         {{months.savings_percent|truncatechars:5}}%
                                 </span>
@@ -275,40 +316,42 @@
         {% for k,v in value.1.0.items  %}
 
             <div class="row white-row-bg pt-1 pb-1 josts " style="font-size: .6em;">
-                <div class="col-12 budget-row-total pt-3 pb-3">
-                    <div class="row font-weight-bold mb-2 mt-2 text-centers bg-dangers">
+                <div class="col-12 budget-row-total pt-3 pb-3" 
+                style="border-left:2px solid #00BFA5;
+                        border-top:0px solid rgb(224, 224, 224);">
+                    <div class="row font-weight-bold mb-2 mt-2 text-centers bg-dangers monthly-font">
                         <div class="col-3 font-weight-bold  josts bg-successs">
                             <span class="p-3">
-                                Total
+                                Total (₹)
                             </span>
                         </div>
-                        <div class="col-3 income ">
+                        <div class="col-3 income monthly-font">
                             {% if v.yearly_income == '-' %}
                             <span class="text-center ">-</span>
                             {% else %}
-                            <span style="margin-right: 5px;">₹</span>{{v.yearly_income}}
+                            <span style="margin-right: 5px;"></span>{{v.yearly_income}}
                                 <!-- <span class="expense-percent  pt-1 pb-1">
                                     {{v.yearly_inc_percent}}%
                             </span> -->
                             {% endif %}
 
                         </div>
-                        <div class="col-3 expense ">
+                        <div class="col-3 expense monthly-font">
                             {% if v.yearly_expense  == '-' %}
                                 <span class="ml-5">-</span>
                             {% else %}
-                            <span style="margin-right: 5px;">₹</span>{{v.yearly_expense}}
+                            <span style="margin-right: 5px;"></span>{{v.yearly_expense}}
                                 <span class="expense-percent  pt-1 pb-1">
                                     {{v.yearly_exp_percent}}%
                             </span>
                             {% endif %}
 
                         </div>
-                        <div class="col-3 font-weight-bold text-blacks savings">
+                        <div class="col-3 font-weight-bold text-blacks savings monthly-font">
                             {% if v.yearly_savings == '-' %}
                                 <span class="text-center">-</span>
                             {% else %}
-                            <span style="margin-right: 5px;">₹</span>{{v.yearly_savings}}
+                            <span style="margin-right: 5px;"></span>{{v.yearly_savings}}
                                 <span class="savings-percent  pt-1 pb-1">
                                     {{v.yearly_savings_percent}}%
                             </span>

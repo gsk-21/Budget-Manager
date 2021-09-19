@@ -20,18 +20,18 @@
 
         <div class="desktop-content row fixed-bottom grey-bgs  white-row-bg container-fluid mx-auto p-2 text-center bottom-fixed-row">
             <div class="col-4  font-weight-bold  jost">
-                <div class="row" style="border-right:1px solid black ;">
-                    <div class="col-5  font-weight-bold">Overall Income</div>
+                <div class="row pipe-white" >
+                    <div class="col-5  font-weight-bold"> Income</div>
                     <div class="col-7 income left-texts"> ₹ {{overall_income}}</div>
                 </div>
             </div>
     
             <div class="col-4 font-weight-bold  jost white-row-bgs">
                 <div class="row">
-                    <div class="col-5">Availabiltiy
+                    <div class="col-5">Savings
                     </div>
-                    <div class="col-7 savings left-texts" 
-                        style="border-right:1px solid black;">
+                    <div class="col-7 savings left-texts pipe-white" 
+                        >
                          ₹ {{overall_savings}} 
                     </div>
                 </div>
@@ -39,7 +39,7 @@
     
             <div class="col-4 font-weight-bold  jost white-row-bgs">
                 <div class="row">
-                    <div class="col-5">Overall Expense</div>
+                    <div class="col-5"> Expense</div>
                     <div class="col-7 expense left-texts"> 
                         ₹ {{overall_expense}}
                     </div>
@@ -47,7 +47,7 @@
             </div>
         </div>
     
-        <div class="mobile-content row fixed-bottom grey-bgs  white-row-bg container-fluid mx-auto p-2 text-center bottom-fixed-row">
+        <!-- <div class="mobile-content row fixed-bottom grey-bgs  white-row-bg container-fluid mx-auto p-2 text-center bottom-fixed-row">
             
             <div class="row font-weight-bold jost m-3">
                 <div class="col-4 text-center " style="border-right:1px solid black ;">
@@ -63,20 +63,20 @@
                 <div class="col-4 text-center expense">₹ {{overall_expense}}</div>
             </div>
 
-
-        </div>
+        </div> -->
 
 
         <div class="row mt-3 ">
-            <div class="col-6 col-lg-6  col-md-12 desktop-content">
+            <div class="col-6 col-lg-6  col-md-12 desktop-content jost">
                 <div class="row  head text-center">
                     <div class="col-11 col-lg-11 col-md-12 white-row-bg ">
                         <div class="jost font-weight-bolds mb-2 mt-3 month-savings ">
                             {{month}} {{year}}
                         </div>
 
-                        <div class="income savings font-weight-bolds mb-3 month-savings word-wrap" >
-                            <i class="fas fa-coins"></i> {{" Savings " | title}} -
+                        <div class="income savings font-weight-bolds mb-3 month-savings word-wrap " >
+                            <!-- <i class="fas fa-coins"></i>  -->
+                            <i class="fas fa-hand-holding-usd"></i> {{" Savings " | title}} -
                             <span style="margin-right: 5px;">₹</span>{{savings}}
                             <span class="available-percent white-row-bg" id="whole-available-percent">
                             </span>
@@ -86,15 +86,21 @@
                 </div>
             </div>
 
-            <div class="col-6 col-lg-6  col-md-12 mobile-content">
+            <div class="col-6 col-lg-6  col-md-12 mobile-content jost ">
                 <div class="row  head text-center">
                     <div class="col-11 col-lg-11 col-md-12 white-row-bg ">
                         <div class="jost font-weight-bolds mb-2 mt-3 month-savings p-3 pt-4 pb-4">
                             {{month}} {{year}}
                         </div>
 
-                        <div class="income savings font-weight-bolds mb-3 month-savings pb-5 word-wrap" >
-                            <i class="fas fa-coins"></i> {{" Savings " | title}} -
+                        <div class="income savings font-weight-bolds mb-3 month-savings pb-5 word-wrap jost" >
+                            <!-- <i class="fas fa-coins"></i> -->
+                            <!-- <i class="fas fa-dollar-sign"></i> -->
+                            <!-- <i class="fas fa-piggy-bank"></i>  -->
+                            <span class="font-weight-bold" style="font-size: 5rem;">
+                                <i class="fas fa-hand-holding-usd"></i>
+                            </span>
+                                {{"  Savings " | title}} -
                             <span>
                                 <span style="margin-right: 8px;">₹</span>{{savings}}</span>
                             <span class="available-percent white-row-bg" id="whole-available-percent">
@@ -105,16 +111,18 @@
                 </div>
                 <div class="mb-5"></div>
             </div>
+
             <div class="d-none d-md-block d-lg-none mt-3">
             </div>
             <div class="col-6 col-lg-6  col-md-12 head">
-                <div class="row desktop-content">
+
+                <div class="row desktop-content jost" >
                     <div class="col-12 mb-2 ">
     
-                        <div class="row total-inc-exp">
-                            <div class="col-6 col-lg-5 font-weight-bolds px-5 pt-2 pb-2 jost 
+                        <div class="row total-inc-exp" id="total-inc">
+                            <div class="col-6 col-lg-5 font-weight-bolds px-5 pt-2 pb-2 josts 
                             white-row-bg ">
-                                {{"Total Income" | title}}
+                                {{"Income" | title}}
                             </div>
                             <div class="col-5 col-lg-6 income  pt-2 pb-2 white-row-bg word-wrap" >
                                 <span style="margin-right: 5px;">+</span><span style="margin-right: 5px;">₹</span>{{total_income|truncatechars:18}}
@@ -128,9 +136,9 @@
                     </div>
     
                     <div class="col-12  mt-3 ">
-                        <div class="row total-inc-exp">
-                            <div class="col-6 col-lg-5 font-weight-bolds px-5 pt-2 pb-2 jost white-row-bg">
-                                {{"Total Expense" | title}}
+                        <div class="row total-inc-exp" id="total-exp">
+                            <div class="col-6 col-lg-5 font-weight-bolds px-5 pt-2 pb-2 josts white-row-bg">
+                                {{"Expense" | title}}
                             </div>
                             <div class="col-5 col-lg-6 expense pt-2 pb-2 white-row-bg word-wrap" >
                                  <span style="margin-right: 5px;">-</span><span style="margin-right: 5px;">₹</span>{{total_expense|truncatechars:18}}
@@ -147,16 +155,16 @@
                 </div>
 
                 <div class="mobile-content">
-                    <div class="row ">
+                    <div class="row jost">
                         <div class="col-6 " style="border-right: 0px solid rgb(248, 248, 248);">
         
                             <div class="row total-inc-exp "
                             style="border:1px solid #00BFA5;
                                     border-left:5px solid #00BFA5;
                                     border-right: 0px solid #00BFA5">
-                                <div class="col-12 font-weight-bolds jost p-3 pt-4
+                                <div class="col-12 font-weight-bolds jost p-3 pt-4 mobile-inc-exp 
                                 white-row-bg ">
-                                    {{"Total Income" | title}}
+                                    {{"Income" | title}}
                                     <span class="mx-auto arrows income text-center float-end pt-3">
                                         <i class="fas fa-arrow-up"></i>
                                     </span>
@@ -172,10 +180,10 @@
                                     style="border:1px solid #E53935;
                                             border-right:5px solid #E53935;
                                             border-left: 1px solid #E53935;">
-                                <div class="col-12 font-weight-bolds  jost p-3 pt-4
+                                <div class="col-12 font-weight-bolds  jost p-3 pt-4 mobile-inc-exp 
                                             white-row-bg">
-                                    {{"Total Expense" | title}}
-                                    <span class="mx-auto arrows expense text-center float-end pt-3">
+                                    {{"Expense" | title}}
+                                    <span class="mx-auto arrows expense text-center float-end pt-3  ">
                                         <i class="fas fa-arrow-down"></i>
                                     </span>
                                 </div>
@@ -203,7 +211,7 @@
                             {{"INCOMES" |upper}}
                         </div>
                         <div class="col-5 ">
-                            <a class="float-end income add-sm-btn "
+                            <a class="float-end income add-sm-btn jost"
                              id="addNewIncome" data-mdb-toggle="modal" data-mdb-target="#addIncome">
                                 Add
                             </a>
@@ -224,7 +232,7 @@
                             {{"Expenses" |upper}}
                         </div>
                         <div class="col-5 ">
-                            <a class="float-end expense add-sm-btn" data-mdb-toggle="modal" data-mdb-target="#addExpense">
+                            <a class="float-end expense add-sm-btn jost" data-mdb-toggle="modal" data-mdb-target="#addExpense">
                                 Add
                             </a>
                         </div>
@@ -428,11 +436,13 @@
                         <div class="col-6 income heading jost font-weight-bolds">
                             {{"INCOMES" |upper}}
                         </div>
+                        <!-- <div class="col-4 bg-success"></div> -->
                         <div class="col-5">
-                            <a class="float-end income add-sm-btn "
+                            <a class="float-end text-center  income add-sm-btn jost"
                             id="addNewIncome" data-mdb-toggle="modal" data-mdb-target="#addIncome">
-                                Add
+                                 <i class="fa fa-plus-circle"></i>
                             </a>
+
                         </div>
                         <div class="col-1">
 
@@ -509,11 +519,12 @@
                 <div class="col-12  ">
                     <div class="row">
                         <div class="col-6 expense heading jost mt-3 mb-3">
-                            {{"Expenses" |upper}}
+                            {{"Expenses" |upper}} 
                         </div>
                         <div class="col-5 ">
-                            <a class="float-end expense add-sm-btn" data-mdb-toggle="modal" data-mdb-target="#addExpense">
-                                Add
+                            <a class="float-end expense add-sm-btn jost" 
+                            data-mdb-toggle="modal" data-mdb-target="#addExpense">
+                                <i class="fas fa-plus-circle"></i> 
                             </a>
                         </div>
                         <div class="col-1">

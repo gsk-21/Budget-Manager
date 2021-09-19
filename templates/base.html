@@ -38,7 +38,7 @@
 
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
-  <title>Budget Manager</title>
+  <title>Budgety</title>
 
 
 <style>
@@ -55,45 +55,6 @@
 
 <body class="light-bg">
 
-  <!-- <nav class="navbar navbar-expand-md  sticky-top  shadow-0 container bg-white " id="desktop-nav">
-
-
-    <div class="d-flex  ">
-      <a class="navbar-brand mr-0  navbar-brand-custom font-weight-bold text-black" href="{% url 'home'%}">
-        <h3>  {{"Budget Manager "|title}}
-        </h3>
-      </a>
-    </div>
-
-      <ul class="navbar-nav ml-auto nav-flex-icons float-end">
-
-        <li class="nav-item">
-          <a class="nav-link waves-effect waves-light text-black"  href="{% url 'monthly-budget' %}">
-            <span class="font-weight-bold" style="font-size: .8em;">
-            Monthly Budget
-            </span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link waves-effect waves-light text-black"  href="{% url 'sign-up' %}">
-            <span class="font-weight-bold" style="font-size: .8em;">
-              Sign UP
-            </span>
-          </a>
-        </li>
-
-
-
-      </ul>
-
-      <button class="navbar-toggler  " type="button" data-toggle="collapse" data-target="#collapsingNavbar">
-        <i class="fa fa-bars"></i>
-      </button>
-
-
-
-  </nav> -->
 
   <nav class="navbar navbar-expand-lg navbar-light   container-fluid shadow-0 font sticky-top" id="nav0">
 	<div class="container-fluid">
@@ -145,13 +106,14 @@
 
 			<li class="nav-item " >
 				<a class="nav-link nav-link-black-text theme-switch" href="#" id="theme-switch">
-					<!--<i class="far fa-moon"></i>-->
-					<i class="fas fa-adjust"></i>
+					<i class="fa fa-adjust"></i>
 				</a>
 			</li>
 
 			<li class="nav-item ">
-				<a class="nav-link nav-link-black-text" href="#">{{user.first_name|title|truncatechars:50}}</a>
+				<span class="nav-link nav-link-black-text" href="#" id="un">
+					{{user.first_name|title|truncatechars:50}}
+				</span>
 			</li>
 
 
@@ -186,6 +148,7 @@
 			href="{% url 'home' %}" id="user-name-container">
 			<span style="margin-left: 5%;">
 				<i class="fas fa-coins "></i>
+				
 			</span>
 			<span style="margin-left: 10%;">
 				Budgety
@@ -193,12 +156,11 @@
 
 			{% if user.is_authenticated %}
 
-			<span style="margin-left:85%;" class="" id="theme-switch-mobile">
-					<!-- <i class="far fa-moon" id="mobile-moon"></i>  -->
-					<!-- <i class="fa fa-toggle-off" aria-hidden="true"></i> -->
-					<i class="fas fa-adjust"></i>
-
+			<span style="margin-left:85%;"  id="theme-switch-mobile" >
+					<i class="fas fa-adjust" ></i>
 			</span>
+
+
 
 			{% endif %}
 

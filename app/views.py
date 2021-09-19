@@ -94,7 +94,7 @@ def monthly_budget(request):
         years.reverse()
         year_dict = {}
         import os
-        os.system('cls')
+        # os.system('cls')
 
         for year in years:
             yearly_total = {}
@@ -138,6 +138,7 @@ def monthly_budget(request):
                         else:
                             expense_percent = 0
                         savings_percent = 100 - expense_percent
+                        # savings_percent = int(round(savings_percent), 0)
                         if expense_percent == 0:
                             savings_percent = 0
                     if total_expense == 0:
@@ -154,7 +155,7 @@ def monthly_budget(request):
                     budget_dict = {'month': month, 'income': str(total_income), 'month_number': month_number,
                                    'expense': str(total_expense),
                                    'savings': str(savings),
-                                   'savings_percent': formated(savings_percent),
+                                   'savings_percent': savings_percent,
                                    'expense_percent': expense_percent,
                                    'income_percent': income_percent
                                    }
@@ -178,6 +179,14 @@ def monthly_budget(request):
         # context['incomes'] = incomes
         # context['expenses'] = expenses
         context['budgets'] = year_dict
+
+        overall_budget = get_overall_budget(user, key)
+        context['overall_income'] = overall_budget['overall_income']
+        context['overall_expense'] = overall_budget['overall_expense']
+        context['overall_savings'] = overall_budget['overall_savings']
+        context['overall_inc_percentage'] = overall_budget['overall_inc_percentage']
+        context['overall_exp_percentage'] = overall_budget['overall_exp_percentage']
+        context['overall_savings_percentage'] = overall_budget['overall_savings_percentage']
 
         return render(request, 'monthly_budget.html', context)
     else:

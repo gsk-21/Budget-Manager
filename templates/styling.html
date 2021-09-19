@@ -2,6 +2,7 @@
     body {
         color: black;
         background-color: rgb(248, 248, 248);
+        background-color: rgba(250, 250, 250, 0.889) !important;
 
     }
     .body-bg{
@@ -81,6 +82,14 @@
     }
 
 
+    .pipe-black{
+        border-right:1px solid black ;
+    }
+
+    .pipe-white{
+        border-right:1px solid white ;
+    }
+
     .income,.available-percent,
     .income:hover {
         color: #00BFA5 !important;
@@ -96,7 +105,14 @@
     }
 
     .savings,.savings-percent{
-        color: #FFD54F;
+        /* color: #FFD54F; */
+        /* color: #FFB300; */
+        color: #FFA000;
+    }
+
+
+    .monthly-font{
+        font-size: 2.5rem;
     }
 
     .heading {
@@ -188,6 +204,10 @@
 
     #nav1,#nav2{
         display: none;
+    }
+
+    #un:hover{
+        text-decoration: none !important;
     }
 
 </style>
@@ -306,6 +326,10 @@
     }
 
     .total-inc-exp{
+        font-size: 3.5rem;
+    }
+
+    .mobile-inc-exp{
         font-size: 4rem;
     }
 
@@ -379,6 +403,17 @@
     .no-budgets{
         font-size: 6rem;
     }
+
+
+    .pipe-black{
+        border-right:2px solid black ;
+    }
+
+    .pipe-white{
+        border-right:2px solid white ;
+    }
+
+
 
 }
 
@@ -578,6 +613,36 @@ function setTheme(){
         }
     }
 
+
+    pipeBlack = document.querySelectorAll('.pipe-black')
+    pipeWhite = document.querySelectorAll('.pipe-white')
+
+    if(theme == dark)
+    {
+        if(pipeWhite != null){
+            for (const i of pipeBlack) {
+                if (i.classList.contains('pipe-black')){
+                    i.classList.remove('pipe-black')
+                    i.classList.add('pipe-white')
+                }
+            }
+        }
+    }
+
+
+    if(theme == light)
+    {
+        if(pipeWhite != null){
+            for (const i of pipeWhite) {
+                if (i.classList.contains('pipe-white')){
+                    i.classList.remove('pipe-white')
+                    i.classList.add('pipe-black')
+                }
+            }
+        }
+    }
+
+
 }
 
 
@@ -592,27 +657,7 @@ themeSwitchMobile = document.querySelector('#theme-switch-mobile')
 "{% endif %}"
 
 
-"{% if user.is_authenticated %}"
-    moonIcon = document.querySelector('.fa-moon')
-    moonIconList = document.querySelectorAll('.fa-moon')
-    moonMobile = document.querySelector('#mobile-moon')
-    for (const i of moonIconList) {
-        console.log(i);
-        if(theme==light){
-            if(i.classList.contains('fas')){
-                i.classList.remove('fas')
-                i.classList.add('far')
-            }
 
-        }else if(theme==dark){
-            if(i.classList.contains('far')){
-                i.classList.remove('far')
-                i.classList.add('fas')
-            }
-        } 
-    }
-
-"{% endif %}"
 
 if(themeSwitch!=null){
     themeSwitch.addEventListener('click',function(){
@@ -625,39 +670,23 @@ if(themeSwitch!=null){
         theme = dark
         console.log("Theme to be sent:",theme);
         setUserTheme(theme)
-        if(moonIcon.classList.contains('far')){
-            moonIcon.classList.remove('far')
-            moonIcon.classList.add('fas')
-        }
 
     }else if(userTheme==dark){
         console.log("Switching to light...");
         theme=light
         console.log("Theme to be sent:",theme);
         setUserTheme(theme)
-        if(moonIcon.classList.contains('fas')){
-            moonIcon.classList.remove('fas')
-            moonIcon.classList.add('far')
-        }
-        
+
     }else if (userTheme=="null"){
         console.log(userTheme);
         if(theme==light){
             theme = dark
             setUserTheme(theme)
-            if(moonIcon.classList.contains('far')){
-                moonIcon.classList.remove('far')
-                moonIcon.classList.add('fas')
-            }
             setTheme()
 
         }else if(theme==dark){
             theme = light
             setUserTheme(theme)
-            if(moonIcon.classList.contains('fas')){
-                moonIcon.classList.remove('fas')
-                moonIcon.classList.add('far')
-            }
             setTheme()
         }
     }
@@ -666,50 +695,38 @@ if(themeSwitch!=null){
 }
 
 
-if(themeSwitchMobile!=null){
-    themeSwitchMobile.addEventListener('click',function(){
-    moonIcon = moonMobile
-    
-    if(theme==light){
-        theme = dark
-        setUserTheme(theme)
-        setTheme()
-        if(moonIcon.classList.contains('far')){
-            moonIcon.classList.remove('far')
-            moonIcon.classList.add('fas')
-        }
 
-    }else if(theme==dark){
-        theme=light
+if(themeSwitchMobile!=null){
+    themeSwitchMobile.addEventListener('click',function(event){
+        event.preventDefault();
+
+    if(userTheme==light){
+        console.log("Switching to dark...");
+        theme = dark
+        console.log("Theme to be sent:",theme);
         setUserTheme(theme)
-        setTheme()
-        if(moonIcon.classList.contains('fas')){
-            moonIcon.classList.remove('fas')
-            moonIcon.classList.add('far')
-        }
-        
-    }else if (theme=="null"){
+
+    }else if(userTheme==dark){
+        console.log("Switching to light...");
+        theme=light
+        console.log("Theme to be sent:",theme);
+        setUserTheme(theme)
+
+    }else if (userTheme=="null"){
+        console.log(userTheme);
         if(theme==light){
             theme = dark
             setUserTheme(theme)
-            if(moonIcon.classList.contains('far')){
-                moonIcon.classList.remove('far')
-                moonIcon.classList.add('fas')
-            }
             setTheme()
 
         }else if(theme==dark){
             theme = light
             setUserTheme(theme)
-            if(moonIcon.classList.contains('fas')){
-                moonIcon.classList.remove('fas')
-                moonIcon.classList.add('far')
-            }
             setTheme()
         }
     }
-})
 
+})
 }
 
 
@@ -729,7 +746,6 @@ function setUserTheme(theme) {
             console.log("Theme set");
             console.log(json);
             userTheme = theme
-            // location.reload()
             setTheme()
         },
         error: function (xhr, errmsg, err) {
