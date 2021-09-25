@@ -1,6 +1,6 @@
 import base64
 
-from django.db.models import Sum
+from django.db.models import Sum, Count
 from django.shortcuts import render, redirect
 from django.utils.dateparse import parse_date
 from django.http import HttpResponse
@@ -35,6 +35,16 @@ def home(request):
         key = Profile.objects.get(user=user).key
         incomes, expenses = decrypt_list(key, incomes, expenses)
 
+        test_income = Income.objects.filter(user=user)
+
+        test_income, test = decrypt_list(key, test_income, expenses)
+        aggr_dict = dict()
+        for i in test_income:
+            if i.description not in aggr_dict:
+                aggr_dict[i.description] = 0
+            aggr_dict[i.description] = aggr_dict[i.description] + float(i.amount)
+            print(i.description, ":", i.amount)
+        print(aggr_dict)
         context['incomes'] = incomes
         context['expenses'] = expenses
 
@@ -55,6 +65,81 @@ def home(request):
         context['overall_savings_percentage'] = overall_budget['overall_savings_percentage']
 
     return render(request, 'home.html', context)
+
+
+def user_profile(request):
+    date = timezone.now()
+    context = initialize()
+    if request.user.is_authenticated:
+        user = request.user
+
+        incomes = Income.objects.filter(user=user)
+        expenses = Expense.objects.filter(user=user)
+
+        key = Profile.objects.get(user=user).key
+        incomes, expenses = decrypt_list(key, incomes, expenses)
+        overall_budget = get_overall_budget(user, key)
+
+        total_income = float(overall_budget['overall_income'])
+        total_expense = float(overall_budget['overall_expense'])
+
+        incomes_dict = dict()
+        expenses_dict = dict()
+        # for i in incomes:
+        #     if i.description not in incomes_dict:
+        #         incomes_dict[i.description] = 0
+        #     incomes_dict[i.description] = incomes_dict[i.description] + float(i.amount)
+        #     print(i.description, ":", i.amount)
+        #
+        # for i in expenses:
+        #     if i.description not in expenses_dict:
+        #         expenses_dict[i.description] = 0
+        #     expenses_dict[i.description] = expenses_dict[i.description] + float(i.amount)
+        #     print(i.description, ":", i.amount)
+
+        for i in incomes:
+            desc = i.description.lower()
+            if desc not in incomes_dict:
+                incomes_dict[desc] = [0, [], desc.replace(' ', '_'), 0]
+            incomes_dict[desc][0] = incomes_dict[desc][0] + float(i.amount)
+            percent = round(((float(i.amount) / total_income) * 100),2)
+            incomes_dict[desc][1].append({'date': i.datetime,
+                                          'amount': i.amount,
+                                          'percent': percent
+                                          })
+
+            incomes_dict[desc][3] = round((incomes_dict[desc][0] / total_income) * 100,2)
+            print(desc, ":", i.amount)
+
+        for i in expenses:
+            desc = i.description.lower()
+            if desc not in expenses_dict:
+                expenses_dict[desc] = [0, [], desc.replace(' ', '_'), 0]
+            percent = round(((float(i.amount) / total_income) * 100),2)
+            expenses_dict[desc][0] = expenses_dict[desc][0] + float(i.amount)
+            expenses_dict[desc][1].append({'date': i.datetime,
+                                           'amount': i.amount,
+                                           'percent': percent
+                                           })
+            expenses_dict[desc][3] = round((expenses_dict[desc][0] / total_expense) * 100,2)
+            print(desc, ":", i.amount)
+
+        print(incomes_dict)
+        print(expenses_dict)
+
+        context['incomes'] = incomes
+        context['expenses'] = expenses
+
+        context['incomes_dict'] = incomes_dict
+        context['expenses_dict'] = expenses_dict
+        context['overall_income'] = overall_budget['overall_income']
+        context['overall_expense'] = overall_budget['overall_expense']
+        context['overall_savings'] = overall_budget['overall_savings']
+        context['overall_inc_percentage'] = overall_budget['overall_inc_percentage']
+        context['overall_exp_percentage'] = overall_budget['overall_exp_percentage']
+        context['overall_savings_percentage'] = overall_budget['overall_savings_percentage']
+
+    return render(request, 'user_profile.html', context)
 
 
 def initialize():
@@ -164,7 +249,7 @@ def monthly_budget(request):
             # print(year, "  -  ", yearly_income, "  ", yearly_expense, "  ", yearly_savings)
             if (yearly_expense < yearly_income):
                 yearly_inc_percent = 100
-                yearly_exp_percent = int(round(((int(yearly_expense) / int(yearly_income)) * 100),0))
+                yearly_exp_percent = int(round(((int(yearly_expense) / int(yearly_income)) * 100), 0))
                 yearly_savings_percent = (100 - yearly_exp_percent)
             yearly_total[year] = {'yearly_income': yearly_income,
                                   'yearly_expense': yearly_expense,
@@ -406,11 +491,13 @@ def set_theme(request):
     else:
         return HttpResponse("Login to set theme")
 
+
 # Helper function
 def validate_username_unique(value):
     exists = User.objects.filter(username=value)
     if exists:
         return 1
+
 
 def encrypt(data: bytes, key: bytes):
     return Fernet(key).encrypt(data)
@@ -418,5 +505,3 @@ def encrypt(data: bytes, key: bytes):
 
 def decrypt(token: bytes, key: bytes):
     return Fernet(key).decrypt(token).decode("utf-8")
-
-

@@ -22,6 +22,8 @@
         background-color: rgb(7, 7, 7) !important;
         /* background-color: rgb(14, 13, 13) !important; */
         background-color: rgb(14, 14, 14) !important;
+
+        background-color: rgba(2, 2, 2, 0.979) !important;
         color: white;
     }
     .light-bg{
@@ -95,6 +97,15 @@
         color: #00BFA5 !important;
         /* color:#1DE9B6 ; */
     }
+    
+
+    .bg-income{
+        background-color: #00BFA5;
+    }
+
+    .bg-expense{
+        background-color: #E53935;
+    }
 
     .expense,.expense-percent,
     .expense:hover {
@@ -122,6 +133,12 @@
 
     .expense-percent,
     .available-percent ,.savings-percent{
+        font-size: .5em;
+        
+    }
+
+    .user-expense-percent,
+    .user-available-percent ,.user-savings-percent{
         font-size: .5em;
         
     }
@@ -155,6 +172,37 @@
         /* background-color: #00BFA5; */
 
     }
+
+    .income-right-border{
+        /* border:1px solid #00BFA5; */
+        border-left:0px solid #00BFA5;
+        border-right: 5px solid #00BFA5;
+    }
+
+
+    .expense-right-border{
+        /* border:1px solid #E53935; */
+        border-left:0px solid #E53935;
+        border-right: 5px solid #E53935;
+    }
+
+
+    
+    .income-left-border{
+        /* border:1px solid #00BFA5; */
+        border-left:5px solid #00BFA5;
+        border-right: 0px solid #00BFA5;
+    }
+
+
+    .expense-left-border{
+        /* border:1px solid #E53935; */
+        border-left:5px solid #E53935;
+        border-right: 0px solid #E53935;
+    }
+
+
+
 
     .border-class {
         border-left: none;
@@ -297,6 +345,13 @@
 
     .expense-percent,
     .available-percent ,.savings-percent{
+        font-size: .5em;
+        
+    }
+
+
+    .user-expense-percent,
+    .user-available-percent ,.user-savings-percent{
         font-size: .5em;
         
     }

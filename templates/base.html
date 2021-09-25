@@ -110,10 +110,14 @@
 				</a>
 			</li>
 
+			<!-- <span class="nav-link nav-link-black-text" href="#" id="un"> -->
+
 			<li class="nav-item ">
-				<span class="nav-link nav-link-black-text" href="#" id="un">
+				<a class="nav-link nav-link-black-text
+				{% if request.resolver_match.url_name == 'user-profile' %}active{% endif %}"
+				 href="{% url 'user-profile' %}">
 					{{user.first_name|title|truncatechars:50}}
-				</span>
+				</a>
 			</li>
 
 

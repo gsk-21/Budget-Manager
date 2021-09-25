@@ -1,0 +1,87 @@
+{% load static %}
+
+{% load humanize %}
+
+    <div class="row content  "  id="expense_mobile_{{value.2}}_drop_down" 
+    style="border:0px solid #00BFA5;border-left:0px solid #00BFA5;">
+
+    <div class="col-1 white-row-bg expense">
+        <span class="p-3">
+            <i class="fa fa-caret-down mt-4" id="expense_mobile_{{value.2}}_caret-btn"></i>
+        </span>
+    </div>
+
+    <div class="col-5 white-row-bg   font-weight-bold text-centers "
+        style="border-right:2px solid #E53935;">
+        <div class="container  p-3">
+            {{key | title}}
+        </div>
+    </div>
+
+    <div class="col-6  expense white-row-bg pt-2 pb-2 amt jost">
+        <div class="container p-3">
+            <span style="margin-right: 8px;">+</span>{{value.0}}
+            <span class="expense user-expense-percent  white-row-bg pt-1 pb-1">
+                {{value.3}} %
+            </span>
+        </div>
+    </div>
+
+</div>
+<div class=" mb-3"></div>
+<!-- {% include 'expense_dropdown.html' %} -->
+
+<div class="" hidden id="expense_mobile_{{value.2}}">
+    
+{% for i in value.1 %}
+
+    <div class="row content expenseContent word-wrap bg-expenses">
+
+        <div class="col-1 white-row-bg pt-2 pb-2 expense-left-border">
+        </div>
+
+        <div class="col-5 white-row-bg pt-2 pb-2 p-3">
+            <div class="container  p-3">
+                {{i.date|naturalday }}
+            </div>
+        </div>
+
+        <div class="col-6  expense white-row-bg pt-2 pb-2 amts jost">
+            <div class="container p-3">
+                <span style="margin-right: 8px;">+</span>{{i.amount}}
+                <span class="expense user-expense-percent  white-row-bg pt-1 pb-1">
+                    {{i.percent}} %
+                </span>
+            </div>
+        </div>
+
+    </div>
+    <div class=" mt-1"> </div>
+    {% endfor %}
+    <div class="mb-3"></div>
+
+
+
+
+    
+<script>
+
+    var expenseMobileDropdown = document.querySelector("#expense_mobile_{{value.2}}_drop_down")
+    
+    expenseMobileDropdown.addEventListener('click',function(){
+        var expenseMobile_list = document.querySelector("#expense_mobile_{{value.2}}")
+        expenseMobile_list.hidden = !expenseMobile_list.hidden
+
+        caret_btn = document.querySelector("#expense_mobile_{{value.2}}_caret-btn") 
+
+        if(caret_btn.classList.contains("fa-caret-down")) {
+            caret_btn.classList.remove("fa-caret-down")
+            caret_btn.classList.add("fa-caret-up")
+        }else{
+            caret_btn.classList.remove("fa-caret-up")
+            caret_btn.classList.add("fa-caret-down")
+        }
+
+    })
+
+</script>

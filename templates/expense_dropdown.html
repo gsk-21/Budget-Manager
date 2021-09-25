@@ -1,0 +1,60 @@
+{% load static %}
+
+{% load humanize %}
+
+<div class="col-1 expense" id="expense_{{value.2}}_drop_down">
+    <i class="fa fa-caret-down mt-2" id="expense_{{value.2}}_caret-btn"></i>
+</div>
+
+<br>
+</div>
+<div class=" mt-1"> </div>
+
+<div class="" id="expense_{{value.2}}" hidden>
+
+
+    {% for i in value.1 %}
+
+    <div class="row content expenseContent word-wrap ">
+
+        <div class="col-2 white-row-bg pt-2 pb-2 expense-left-border">
+
+        </div>
+
+        <div class="col-5 white-row-bg pt-2 pb-2">
+            {{i.date|naturalday }}
+        </div>
+        <div class="col-4 expense white-row-bg pt-2 pb-2 amts jost">
+            <span style="margin-right: 5px;">+</span>{{i.amount}}
+            <span class="expense user-expense-percent  white-row-bg pt-1 pb-1">
+                {{i.percent}}%
+            </span>
+        </div>
+
+    </div>
+    <div class=" mt-1"> </div>
+    {% endfor %}
+
+</div>
+
+
+<script>
+
+    var expenseDropdown = document.querySelector("#expense_{{value.2}}_drop_down")
+    console.log(expenseDropdown);
+    expenseDropdown.addEventListener('click',function(){
+        var expense_list = document.querySelector("#expense_{{value.2}}")
+
+        expense_list.hidden = !expense_list.hidden
+        caret_btn = document.querySelector("#expense_{{value.2}}_caret-btn") 
+        if(caret_btn.classList.contains("fa-caret-down")) {
+            caret_btn.classList.remove("fa-caret-down")
+            caret_btn.classList.add("fa-caret-up")
+        }else{
+            caret_btn.classList.remove("fa-caret-up")
+            caret_btn.classList.add("fa-caret-down")
+        }
+    })
+
+</script>
+
