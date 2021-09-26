@@ -68,7 +68,7 @@
                         <div class="income savingss font-weight-bolds mb-3 month-savings word-wrap " >
                             <!-- <i class="fas fa-coins"></i>  -->
                             
-                            <span style="margin-right: 5px;">₹</span>{{overall_savings}}
+                            <span style="margin-right: 5px;">₹</span>{{overall_savings|intcomma}}
                             <span class="user-available-percent white-row-bg income" >
                                 {{overall_savings_percentage}}%
                             </span>
@@ -88,7 +88,7 @@
                         <div class="income savings font-weight-bolds mb-3 
                                     month-savings pb-5 word-wrap jost" >
                             <span>
-                                <span style="margin-right: 8px;">₹</span>{{overall_savings}}</span>
+                                <span style="margin-right: 8px;">₹</span>{{overall_savings|intcomma}}</span>
                             <span class="user-available-percent white-row-bg income">
                                 {{overall_savings_percentage}}%
                             </span>
@@ -112,7 +112,7 @@
                                 {{"Income" | title}}
                             </div>
                             <div class="col-5 col-lg-6 income  pt-2 pb-2 white-row-bg word-wrap" >
-                                <span style="margin-right: 5px;">+</span><span style="margin-right: 5px;">₹</span>{{overall_income|truncatechars:18}}
+                                <span style="margin-right: 5px;">+</span><span style="margin-right: 5px;">₹</span>{{overall_income|intcomma|truncatechars:18}}
                             </div>
                             <div class=" col-1 col-lg-1 income pt-2 pb-2 text-center">
                                 <span class="mx-auto arrows">
@@ -128,7 +128,7 @@
                                 {{"Expense" | title}}
                             </div>
                             <div class="col-5 col-lg-6 expense pt-2 pb-2 white-row-bg word-wrap" >
-                                 <span style="margin-right: 5px;">-</span><span style="margin-right: 5px;">₹</span>{{overall_expense|truncatechars:18}}
+                                 <span style="margin-right: 5px;">-</span><span style="margin-right: 5px;">₹</span>{{overall_expense|intcomma|truncatechars:18}}
                                 <span class="user-expense-percent white-row-bg expense">
                                     {{overall_exp_percentage}}%
                                 </span>
@@ -158,7 +158,7 @@
                                     </span>
                                 </div>
                                 <div class="col-12  income white-row-bg p-3 pb-4 word-wrap">
-                                    <span style="margin-right: 5px;margin-left: 8px;">₹</span>{{overall_income|truncatechars:18}}
+                                    <span style="margin-right: 5px;margin-left: 8px;">₹</span>{{overall_income|intcomma|truncatechars:18}}
                                 </div>
                             </div>
                         </div>
@@ -176,7 +176,7 @@
                                     </span>
                                 </div>
                                 <div class="col-12  expense white-row-bg p-3 pb-4 word-wrap" style="">
-                                    <span style="margin-right: 5px;margin-left: 8px;">₹</span>{{overall_expense|truncatechars:18}}
+                                    <span style="margin-right: 5px;margin-left: 8px;">₹</span>{{overall_expense|intcomma|truncatechars:18}}
                                     <span class="expense-percent white-row-bg" >
                                         {{overall_exp_percentage}}%
                                     </span>
@@ -290,7 +290,7 @@
             <!-- Income -->
 
             <div class="col-6 row-font">
-                {% for key,value in incomes_dict.items|dictsortreversed:1 %}
+                {% for key,value in incomes_dict.items|dictsortreversed:0 %}
                 <div class="row content  word-wrap"  >
 
                     <div class="col-2 font-weight-bold  white-row-bg pt-2 pb-2 ">
@@ -340,6 +340,7 @@
             </div>
             {% endif %}
 
+            
             {% if expenses|length != 0 %}
             <!-- Expense -->
             <div class="col-6 row-font">

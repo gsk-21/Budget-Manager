@@ -37,14 +37,6 @@ def home(request):
 
         test_income = Income.objects.filter(user=user)
 
-        test_income, test = decrypt_list(key, test_income, expenses)
-        aggr_dict = dict()
-        for i in test_income:
-            if i.description not in aggr_dict:
-                aggr_dict[i.description] = 0
-            aggr_dict[i.description] = aggr_dict[i.description] + float(i.amount)
-            print(i.description, ":", i.amount)
-        print(aggr_dict)
         context['incomes'] = incomes
         context['expenses'] = expenses
 
@@ -96,11 +88,16 @@ def user_profile(request):
         #         expenses_dict[i.description] = 0
         #     expenses_dict[i.description] = expenses_dict[i.description] + float(i.amount)
         #     print(i.description, ":", i.amount)
+        print("\nINCOMES:")
+        print(incomes)
+        print("\nEXPENSES:")
+        print(expenses)
 
+        print("\nINCOMES:")
         for i in incomes:
             desc = i.description.lower()
             if desc not in incomes_dict:
-                incomes_dict[desc] = [0, [], desc.replace(' ', '_'), 0]
+                incomes_dict[desc] = [0, [], desc.replace(' ', '_').replace('(', '_').replace(')', '_'), 0]
             incomes_dict[desc][0] = incomes_dict[desc][0] + float(i.amount)
             percent = round(((float(i.amount) / total_income) * 100), 2)
             incomes_dict[desc][1].append({'date': i.datetime,
@@ -109,12 +106,13 @@ def user_profile(request):
                                           })
 
             incomes_dict[desc][3] = round((incomes_dict[desc][0] / total_income) * 100, 2)
-            # print(desc, ":", i.amount)
+            print(desc, ":", i.amount)
 
+        print("\nEXPENSES:")
         for i in expenses:
             desc = i.description.lower()
             if desc not in expenses_dict:
-                expenses_dict[desc] = [0, [], desc.replace(' ', '_'), 0]
+                expenses_dict[desc] = [0, [], desc.replace(' ', '_').replace('(', '_').replace(')', '_'), 0]
             percent = round(((float(i.amount) / total_income) * 100), 2)
             expenses_dict[desc][0] = expenses_dict[desc][0] + float(i.amount)
             expenses_dict[desc][1].append({'date': i.datetime,
@@ -122,8 +120,12 @@ def user_profile(request):
                                            'percent': percent
                                            })
             expenses_dict[desc][3] = round((expenses_dict[desc][0] / total_expense) * 100, 2)
-            # print(desc, ":", i.amount)
+            print(desc, ":", i.amount)
 
+        print("\n")
+        print(incomes_dict)
+        print("\n")
+        print(expenses_dict)
         context['incomes'] = incomes
         context['expenses'] = expenses
 
