@@ -44,10 +44,12 @@
 <style>
 	.active{
 	color: black !important;
-	text-decoration: underline;
+	/* text-decoration: underline; */
+	font-weight: bold;
 	}
 	.nav-link:hover{
 		text-decoration: underline;
+		
 	}
 </style>
 
@@ -116,10 +118,9 @@
 				<a class="nav-link nav-link-black-text
 				{% if request.resolver_match.url_name == 'user-profile' %}active{% endif %}"
 				 href="{% url 'user-profile' %}">
-					{{user.first_name|title|truncatechars:50}}
+					{{user.first_name|title|truncatechars:50}} 
 				</a>
 			</li>
-
 
 			<li class="nav-item">
 				<a class="nav-link nav-link-black-text" href="{% url 'logout' %}">Logout</a>
@@ -134,8 +135,6 @@
 			</li>
 			{% endif %}
 		</ul>
-
-
 	  </div>
 	</div>
   </nav>
@@ -148,6 +147,7 @@
 
 	<div class="navbar-header bg-successs">
 		<div class="container bg-dangers m-2">
+
 			<a class="navbar-brand nav-link-black-text navbar-brand-custom "
 			href="{% url 'home' %}" id="user-name-container">
 			<span style="margin-left: 5%;">
@@ -160,20 +160,18 @@
 
 			{% if user.is_authenticated %}
 
-			<span style="margin-left:85%;"  id="theme-switch-mobile" >
-					<i class="fas fa-adjust" ></i>
+			<span style="margin-left:40%;"  id="theme-switch-mobile" >
+				<i class="fas fa-adjust" ></i>
 			</span>
 
-
+			<span style="margin-left:20%;"  id="mobile-profile">
+					<i class="fas fa-user"></i>
+			</span>
 
 			{% endif %}
-
 		</a>
-
-
-
+			</div>
 		</div>
-
 	</div>
 
 	<!-- RIGHT FIXED -->
@@ -275,6 +273,13 @@
 
 
 <script>
+
+	mobileProfile = document.querySelector("#mobile-profile")
+	mobileProfile.addEventListener('click',function(e){
+		e.preventDefault()
+		href="{% url 'user-profile'%}"
+		window.location = href
+	})
 
 </script>
 

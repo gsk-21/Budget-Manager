@@ -290,7 +290,7 @@
             <!-- Income -->
 
             <div class="col-6 row-font">
-                {% for key,value in incomes_dict.items %}
+                {% for key,value in incomes_dict.items|dictsortreversed:1 %}
                 <div class="row content  word-wrap"  >
 
                     <div class="col-2 font-weight-bold  white-row-bg pt-2 pb-2 ">
@@ -343,7 +343,7 @@
             {% if expenses|length != 0 %}
             <!-- Expense -->
             <div class="col-6 row-font">
-                {% for key,value in expenses_dict.items %}
+                {% for key,value in expenses_dict.items|dictsortreversed:1 %}
                 <div class="row content  word-wrap"  >
                     <div class="col-2 font-weight-bold white-row-bg pt-2 pb-2">
                         {{forloop.counter}}
@@ -412,17 +412,13 @@
             {% if incomes|length != 0 %}
             <div class="col-12  ">
                 <div class="row mt-1 mb-3">
-                    <div class="col-6 income heading jost font-weight-bolds">
-                        {{"INCOMES" |upper}}
+                    <div class="col-12 income heading jost font-weight-bolds">
+                        <i class="fas fa-stream"></i>
+                        <!-- <i class="fas fa-list-ul"></i> -->
+                         {{"INCOME LIST" |upper}}
                     </div>
                     <!-- <div class="col-4 bg-success"></div> -->
-                    <div class="col-5">
-                        <a class="float-end text-center  income add-sm-btn jost" id="addNewIncome"
-                            data-mdb-toggle="modal" data-mdb-target="#addIncome">
-                            <i class="fa fa-plus-circle"></i>
-                        </a>
 
-                    </div>
                     <div class="col-1">
                     </div>
                 </div>
@@ -434,7 +430,7 @@
             {% if incomes|length != 0 %}
             <!-- Income -->
             <div class="col-12 row-font word-wrap " >
-                {% for key,value in incomes_dict.items %}
+                {% for key,value in incomes_dict.items|dictsortreversed:1 %}
                 
                 {% include 'income_dropdown_mobile.html' %}
 
@@ -479,17 +475,12 @@
             {% if expenses|length != 0 %}
             <div class="col-12  ">
                 <div class="row">
-                    <div class="col-6 expense heading jost mt-3 mb-3">
-                        {{"Expenses" |upper}}
+                    <div class="col-12 expense heading jost mt-3 mb-3">
+                        <i class="fas fa-stream"></i>
+                        <!-- <i class="fas fa-list-ul"></i> -->
+                         {{"EXPENSE LIST" |upper}}
                     </div>
-                    <div class="col-5 ">
-                        <a class="float-end expense add-sm-btn jost" data-mdb-toggle="modal"
-                            data-mdb-target="#addExpense">
-                            <i class="fas fa-plus-circle"></i>
-                        </a>
-                    </div>
-                    <div class="col-1">
-                    </div>
+
                 </div>
             </div>
             {% else %}
@@ -499,7 +490,7 @@
             {% if expenses|length != 0 %}
             <!-- Expense -->
             <div class="col-12 row-font">
-                {% for key,value in expenses_dict.items %}
+                {% for key,value in expenses_dict.items|dictsortreversed:1 %}
 
                 {% include 'expense_dropdown_mobile.html' %}
 

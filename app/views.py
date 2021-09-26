@@ -102,30 +102,27 @@ def user_profile(request):
             if desc not in incomes_dict:
                 incomes_dict[desc] = [0, [], desc.replace(' ', '_'), 0]
             incomes_dict[desc][0] = incomes_dict[desc][0] + float(i.amount)
-            percent = round(((float(i.amount) / total_income) * 100),2)
+            percent = round(((float(i.amount) / total_income) * 100), 2)
             incomes_dict[desc][1].append({'date': i.datetime,
-                                          'amount': i.amount,
+                                          'amount': float(i.amount),
                                           'percent': percent
                                           })
 
-            incomes_dict[desc][3] = round((incomes_dict[desc][0] / total_income) * 100,2)
-            print(desc, ":", i.amount)
+            incomes_dict[desc][3] = round((incomes_dict[desc][0] / total_income) * 100, 2)
+            # print(desc, ":", i.amount)
 
         for i in expenses:
             desc = i.description.lower()
             if desc not in expenses_dict:
                 expenses_dict[desc] = [0, [], desc.replace(' ', '_'), 0]
-            percent = round(((float(i.amount) / total_income) * 100),2)
+            percent = round(((float(i.amount) / total_income) * 100), 2)
             expenses_dict[desc][0] = expenses_dict[desc][0] + float(i.amount)
             expenses_dict[desc][1].append({'date': i.datetime,
-                                           'amount': i.amount,
+                                           'amount': float(i.amount),
                                            'percent': percent
                                            })
-            expenses_dict[desc][3] = round((expenses_dict[desc][0] / total_expense) * 100,2)
-            print(desc, ":", i.amount)
-
-        print(incomes_dict)
-        print(expenses_dict)
+            expenses_dict[desc][3] = round((expenses_dict[desc][0] / total_expense) * 100, 2)
+            # print(desc, ":", i.amount)
 
         context['incomes'] = incomes
         context['expenses'] = expenses

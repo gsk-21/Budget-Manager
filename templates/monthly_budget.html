@@ -24,6 +24,35 @@
 
 {% endif %}
 
+<div class="desktop-content row fixed-bottom grey-bgs  white-row-bg container-fluid mx-auto p-2 text-center bottom-fixed-row">
+    <div class="col-4  font-weight-bold  jost">
+        <div class="row pipe-white" >
+            <div class="col-5  font-weight-bold"> Income</div>
+            <div class="col-7 income left-texts"> ₹ {{overall_income}}</div>
+        </div>
+    </div>
+
+    <div class="col-4 font-weight-bold  jost white-row-bgs">
+        <div class="row">
+            <div class="col-5">Savings
+            </div>
+            <div class="col-7 savings left-texts pipe-white" 
+                >
+                 ₹ {{overall_savings}} 
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4 font-weight-bold  jost white-row-bgs">
+        <div class="row">
+            <div class="col-5"> Expense</div>
+            <div class="col-7 expense left-texts"> 
+                ₹ {{overall_expense}}
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="mobile-content row fixed-bottom grey-bgs  white-row-bg container-fluid mx-auto p-2 text-center bottom-fixed-row">
             
     <div class="row font-weight-bold jost m-1 pt-2 income">

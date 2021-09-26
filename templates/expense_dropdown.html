@@ -13,7 +13,7 @@
 <div class="" id="expense_{{value.2}}" hidden>
 
 
-    {% for i in value.1 %}
+    {% for i in value.1|dictsortreversed:"amount"  %}
 
     <div class="row content expenseContent word-wrap ">
 

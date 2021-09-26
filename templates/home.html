@@ -18,34 +18,7 @@
 <div class="containers mx-auto" style="width: 95%;">
     <div class="container-fluid mt-0 ">
 
-        <div class="desktop-content row fixed-bottom grey-bgs  white-row-bg container-fluid mx-auto p-2 text-center bottom-fixed-row">
-            <div class="col-4  font-weight-bold  jost">
-                <div class="row pipe-white" >
-                    <div class="col-5  font-weight-bold"> Income</div>
-                    <div class="col-7 income left-texts"> ₹ {{overall_income}}</div>
-                </div>
-            </div>
-    
-            <div class="col-4 font-weight-bold  jost white-row-bgs">
-                <div class="row">
-                    <div class="col-5">Savings
-                    </div>
-                    <div class="col-7 savings left-texts pipe-white" 
-                        >
-                         ₹ {{overall_savings}} 
-                    </div>
-                </div>
-            </div>
-    
-            <div class="col-4 font-weight-bold  jost white-row-bgs">
-                <div class="row">
-                    <div class="col-5"> Expense</div>
-                    <div class="col-7 expense left-texts"> 
-                        ₹ {{overall_expense}}
-                    </div>
-                </div>
-            </div>
-        </div>
+
     
         <!-- <div class="mobile-content row fixed-bottom grey-bgs  white-row-bg container-fluid mx-auto p-2 text-center bottom-fixed-row">
             
@@ -321,7 +294,7 @@
                         {{income.datetime | naturalday | title}}
                     </div>
                     <div class="col-3 white-row-bg pt-2 pb-2">
-                        {{income.description}}
+                        {{income.description|title}}
                     </div>
                     <div class="col-3 income white-row-bg pt-2 pb-2 amt jost">
                         <span style="margin-right: 5px;">+</span>{{income.amount}}
@@ -374,7 +347,7 @@
                             {{expense.datetime | naturalday | title}}
                         </div>
                         <div class="col-3 white-row-bg pt-2 pb-2">
-                            {{expense.description}}
+                            {{expense.description|title}}
                         </div>
                         <div class="col-3 expense white-row-bg pt-2 pb-2 amt jost">
                             <span style="margin-right: 5px;">-</span>{{expense.amount}}
@@ -469,7 +442,7 @@
                 <div class="col-5 white-row-bg   font-weight-bold text-centers " 
                 style="border-right:2px solid #00BFA5;">
                         <div class="container  p-3">
-                            {{income.description}}
+                            {{income.description|title}}
                         </div>
                 </div>
                 <div class="col-6  income white-row-bg pt-2 pb-2 amt jost">
@@ -552,7 +525,7 @@
                         <div class="col-5 white-row-bg   font-weight-bold text-centers "
                                 style="border-right:2px solid #E53935;">
                             <div class="container  p-3">
-                                {{expense.description}}
+                                {{expense.description|title}}
                             </div>
                         </div>
                         <div class="col-6 expense white-row-bg pt-2 pb-2 amt jost">
