@@ -77,6 +77,76 @@ def user_profile(request):
 
         incomes_dict = dict()
         expenses_dict = dict()
+
+        for i in incomes:
+            desc = i.description.lower()
+            if desc not in incomes_dict:
+                incomes_dict[desc] = [0, [], desc.replace(' ', '_').replace('(', '_').replace(')', '_'), 0]
+            incomes_dict[desc][0] = incomes_dict[desc][0] + float(i.amount)
+            percent = round(((float(i.amount) / total_income) * 100), 2)
+            incomes_dict[desc][1].append({'date': i.datetime,
+                                          'amount': float(i.amount),
+                                          'percent': percent
+                                          })
+
+            incomes_dict[desc][3] = round((incomes_dict[desc][0] / total_income) * 100, 2)
+
+        for i in expenses:
+            desc = i.description.lower()
+            if desc not in expenses_dict:
+                expenses_dict[desc] = [0, [], desc.replace(' ', '_').replace('(', '_').replace(')', '_'), 0]
+            percent = round(((float(i.amount) / total_income) * 100), 2)
+            expenses_dict[desc][0] = expenses_dict[desc][0] + float(i.amount)
+            expenses_dict[desc][1].append({'date': i.datetime,
+                                           'amount': float(i.amount),
+                                           'percent': percent
+                                           })
+            expenses_dict[desc][3] = round((expenses_dict[desc][0] / total_expense) * 100, 2)
+
+        sorted_incomes_dict = dict()
+        sorted_expenses_dict = dict()
+
+        sorted_incomes_list = sorted(incomes_dict.items(), key=lambda x: x[1][0], reverse=True)
+        sorted_expenses_list = sorted(expenses_dict.items(), key=lambda x: x[1][0], reverse=True)
+
+        for i in sorted_incomes_list:
+            sorted_incomes_dict[i[0]] = i[1]
+
+        for i in sorted_expenses_list:
+            sorted_expenses_dict[i[0]] = i[1]
+
+        context['incomes'] = incomes
+        context['expenses'] = expenses
+        context['incomes_dict'] = sorted_incomes_dict
+        context['expenses_dict'] = sorted_expenses_dict
+        context['overall_income'] = overall_budget['overall_income']
+        context['overall_expense'] = overall_budget['overall_expense']
+        context['overall_savings'] = overall_budget['overall_savings']
+        context['overall_inc_percentage'] = overall_budget['overall_inc_percentage']
+        context['overall_exp_percentage'] = overall_budget['overall_exp_percentage']
+        context['overall_savings_percentage'] = overall_budget['overall_savings_percentage']
+
+    return render(request, 'user_profile.html', context)
+
+
+def user_profile_bk(request):
+    date = timezone.now()
+    context = initialize()
+    if request.user.is_authenticated:
+        user = request.user
+
+        incomes = Income.objects.filter(user=user)
+        expenses = Expense.objects.filter(user=user)
+
+        key = Profile.objects.get(user=user).key
+        incomes, expenses = decrypt_list(key, incomes, expenses)
+        overall_budget = get_overall_budget(user, key)
+
+        total_income = float(overall_budget['overall_income'])
+        total_expense = float(overall_budget['overall_expense'])
+
+        incomes_dict = dict()
+        expenses_dict = dict()
         # for i in incomes:
         #     if i.description not in incomes_dict:
         #         incomes_dict[i.description] = 0
@@ -236,9 +306,9 @@ def monthly_budget(request):
                     yearly_expense = yearly_expense + total_expense
                     yearly_savings = yearly_savings + savings
 
-                    budget_dict = {'month': month, 'income': str(total_income), 'month_number': month_number,
-                                   'expense': str(total_expense),
-                                   'savings': str(savings),
+                    budget_dict = {'month': month, 'income': str(int(total_income)), 'month_number': month_number,
+                                   'expense': str(int(total_expense)),
+                                   'savings': str(int(savings)),
                                    'savings_percent': savings_percent,
                                    'expense_percent': expense_percent,
                                    'income_percent': income_percent
@@ -250,9 +320,9 @@ def monthly_budget(request):
                 yearly_inc_percent = 100
                 yearly_exp_percent = int(round(((int(yearly_expense) / int(yearly_income)) * 100), 0))
                 yearly_savings_percent = (100 - yearly_exp_percent)
-            yearly_total[year] = {'yearly_income': yearly_income,
-                                  'yearly_expense': yearly_expense,
-                                  'yearly_savings': yearly_savings,
+            yearly_total[year] = {'yearly_income': int(yearly_income),
+                                  'yearly_expense': int(yearly_expense),
+                                  'yearly_savings': int(yearly_savings),
                                   'yearly_inc_percent': yearly_inc_percent,
                                   'yearly_exp_percent': yearly_exp_percent,
                                   'yearly_savings_percent': yearly_savings_percent

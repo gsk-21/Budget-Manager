@@ -118,7 +118,7 @@
 				<a class="nav-link nav-link-black-text
 				{% if request.resolver_match.url_name == 'user-profile' %}active{% endif %}"
 				 href="{% url 'user-profile' %}">
-					{{user.first_name|title|truncatechars:50}} 
+					{{user.first_name|upper|truncatechars:50}} 
 				</a>
 			</li>
 
@@ -165,7 +165,13 @@
 			</span>
 
 			<span style="margin-left:20%;"  id="mobile-profile">
+
+				{% if  request.resolver_match.url_name == 'user-profile' %}
 					<i class="fas fa-user"></i>
+				{% else %}
+					<i class="far fa-user"></i>
+				{% endif %}
+
 			</span>
 
 			{% endif %}

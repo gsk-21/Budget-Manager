@@ -6,103 +6,6 @@
 
 {% block content %}
 
-<!-- <style>
-    body {
-        color: black;
-        background-color: rgb(248, 248, 248);
-    }
-
-    .add-sm-btn:hover{
-        cursor: pointer;
-        text-decoration: underline;
-    }
-    .add-new-btn:hover{
-
-    }
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-    input[type=number] {
-        -moz-appearance: textfield;
-    }
-
-    .row-bg {
-        background-color: white;
-    }
-
-    .white-row-bg {
-        background-color: white;
-    }
-
-    .income,
-    .income:hover {
-        color: #00BFA5;
-        /* color:#1DE9B6 ; */
-    }
-
-    .expense,
-    .expense:hover {
-        /* color: #FF1744; */
-        /* color: #D50000; */
-        color: #FF5252;
-        color: #E53935;
-    }
-
-    .heading {
-        /* font-weight: bold; */
-        font-size: 1.15em;
-    }
-
-    .expense-percent,
-    .available-percent {
-        font-size: .5em;
-    }
-
-    .head {
-        font-size: 1.5rem;
-    }
-
-    .amt {
-        font-size: .95rem;
-        font-weight: bold;
-    }
-
-    .content {
-        font-size: .95rem;
-        cursor: pointer;
-    }
-
-    .content:hover {
-        /* background-color: #00BFA5; */
-
-    }
-
-    .border-class {
-        border-left: none;
-        border-top: none;
-        border-right: none;
-        border-radius: 0px;
-        outline-style: none !important;
-        box-shadow: none !important;
-        border-color: grey !important;
-        /* border-color: #00BFA5 !important; */
-    }
-
-    .grayout {
-        opacity: 0.4;
-        /* Real browsers */
-        filter: alpha(opacity=80);
-        /* MSIE */
-    }
-
-    .jost {
-        font-family: 'Jost', sans-serif !important;
-    }
-</style> -->
-
 
 {% include 'add_income_forMonth.html' %}
 
@@ -124,7 +27,7 @@
                         <div class="income savings font-weight-bolds mb-3 month-savings word-wrap " >
                             <!-- <i class="fas fa-coins"></i>  -->
                             <i class="fas fa-hand-holding-usd"></i> {{" Savings " | title}} -
-                            <span style="margin-right: 5px;">₹</span>{{savings}}
+                            <span style="margin-right: 5px;">₹</span>{{savings|intcomma}}
                             <span class="available-percent white-row-bg" id="whole-available-percent">
                             </span>
     
@@ -149,7 +52,7 @@
                             </span>
                                 {{"  Savings " | title}} -
                             <span>
-                                <span style="margin-right: 8px;">₹</span>{{savings}}</span>
+                                <span style="margin-right: 8px;">₹</span>{{savings|intcomma}}</span>
                             <span class="available-percent white-row-bg" id="whole-available-percent">
                             </span>
     
@@ -173,7 +76,7 @@
                                 {{"Income" | title}}
                             </div>
                             <div class="col-5 col-lg-6 income  pt-2 pb-2 white-row-bg word-wrap" >
-                                <span style="margin-right: 5px;">+</span><span style="margin-right: 5px;">₹</span>{{total_income|truncatechars:18}}
+                                <span style="margin-right: 5px;">+</span><span style="margin-right: 5px;">₹</span>{{total_income|intcomma|truncatechars:18}}
                             </div>
                             <div class=" col-1 col-lg-1 income pt-2 pb-2 text-center">
                                 <span class="mx-auto arrows">
@@ -189,7 +92,7 @@
                                 {{"Expense" | title}}
                             </div>
                             <div class="col-5 col-lg-6 expense pt-2 pb-2 white-row-bg word-wrap" >
-                                 <span style="margin-right: 5px;">-</span><span style="margin-right: 5px;">₹</span>{{total_expense|truncatechars:18}}
+                                 <span style="margin-right: 5px;">-</span><span style="margin-right: 5px;">₹</span>{{total_expense|intcomma|truncatechars:18}}
                                 <span class="expense-percent white-row-bg" id="whole-exp-percent">
                                 </span>
                             </div>
@@ -297,7 +200,7 @@
         <div class="row jost mt-3 desktop-content">
             <div class="col-6 ">
                 {% if incomes|length != 0 %}
-                <div class="row font-weight-bold mb-2">
+                <div class="row font-weight-bolds mb-2" style="font-weight: 600;">
                     <div class="col-2 ">
                         No.
                     </div>
@@ -324,7 +227,7 @@
     
             <div class="col-6 ">
                 {% if expenses|length != 0 %}
-                <div class="row font-weight-bold mb-2">
+                <div class="row font-weight-bolds mb-2" style="font-weight: 600;">
                     <div class="col-2">
                         No.
                     </div>
@@ -355,14 +258,14 @@
     </div>
     
     <div class="container-fluid desktop-content">
-        <div class="row row-font">
+        <div class="row row-font jost">
             {% if incomes|length != 0 %}
             <!-- Income -->
             <div class="col-6 row-font">
                 {% for income in incomes %}
                 <div class="row content incomeContent word-wrap" id="incContent_{{income.slug}}" data-slug="{{income.slug}}">
     
-                    <div class="col-2 font-weight-bold  white-row-bg pt-2 pb-2 ">
+                    <div class="col-2 font-weight-bolds  white-row-bg pt-2 pb-2 ">
                         {{forloop.counter}}
                     </div>
                     <div class="col-3 white-row-bg pt-2 pb-2">
@@ -371,8 +274,9 @@
                     <div class="col-3 white-row-bg pt-2 pb-2">
                         {{income.description}}
                     </div>
-                    <div class="col-3 income white-row-bg pt-2 pb-2 amt jost">
-                        <span style="margin-right: 5px;">+</span>{{income.amount}}
+                    <div class="col-3 income white-row-bg pt-2 pb-2 amt jost"
+                    style="font-weight: 500;">
+                        <span style="margin-right: 5px;">+</span>{{income.amount|intcomma}}
                     </div>
                     <div class="col-1 pt-1 income ">
                         {% include 'remove-income.html' %}
@@ -415,7 +319,7 @@
                 <div class="col-6 row-font">
                     {% for expense in expenses %}
                     <div class="row content expenseContent word-wrap" id="expContent_{{expense.slug}}" data-slug="{{expense.slug}}">
-                        <div class="col-2 font-weight-bold white-row-bg pt-2 pb-2">
+                        <div class="col-2 font-weight-bolds white-row-bg pt-2 pb-2">
                             {{forloop.counter}}
                         </div>
                         <div class="col-3 white-row-bg pt-2 pb-2">
@@ -424,8 +328,9 @@
                         <div class="col-3 white-row-bg pt-2 pb-2">
                             {{expense.description}}
                         </div>
-                        <div class="col-3 expense white-row-bg pt-2 pb-2 amt jost">
-                            <span style="margin-right: 5px;">-</span>{{expense.amount}}
+                        <div class="col-3 expense white-row-bg pt-2 pb-2 amt jost"
+                        style="font-weight: 500;">
+                            <span style="margin-right: 5px;">-</span>{{expense.amount|intcomma}}
                             {% include 'loss_percent.html' %}
                         </div>
                         <div class="col-1 pt-1 expense ">
@@ -519,7 +424,7 @@
                 </div>
                 <div class="col-6  income white-row-bg pt-2 pb-2 amt jost">
                     <div class="container p-3">
-                        <span style="margin-right: 8px;">+</span>{{income.amount}}
+                        <span style="margin-right: 8px;">+</span>{{income.amount|intcomma}}
                     </div>
                 </div>
                 {% include 'remove_income_mobile.html' %}
@@ -598,7 +503,7 @@
                         </div>
                         <div class="col-6 expense white-row-bg pt-2 pb-2 amt jost">
                             <div class="container  p-3">
-                                <span style="margin-right: 8px;">-</span>{{expense.amount}}
+                                <span style="margin-right: 8px;">-</span>{{expense.amount|intcomma}}
                                 {% include '_mobile_loss_percent.html' %}
                             </div>
                         </div>

@@ -222,7 +222,7 @@
         <div class="row jost mt-3 desktop-content">
             <div class="col-6 ">
                 {% if incomes|length != 0 %}
-                <div class="row font-weight-bold mb-2">
+                <div class="row  mb-2" style="font-weight: 600;">
                     <div class="col-2 ">
                         No.
                     </div>
@@ -249,7 +249,7 @@
     
             <div class="col-6 ">
                 {% if expenses|length != 0 %}
-                <div class="row font-weight-bold mb-2">
+                <div class="row font-weight-bolds mb-2" style="font-weight: 600;">
                     <div class="col-2">
                         No.
                     </div>
@@ -279,7 +279,7 @@
     
     </div>
     
-    <div class="container-fluid desktop-content">
+    <div class="container-fluid desktop-content jost">
         <div class="row row-font">
             {% if incomes|length != 0 %}
             <!-- Income -->
@@ -287,7 +287,7 @@
                 {% for income in incomes %}
                 <div class="row content incomeContent word-wrap" id="incContent_{{income.slug}}" data-slug="{{income.slug}}">
     
-                    <div class="col-2 font-weight-bold  white-row-bg pt-2 pb-2 ">
+                    <div class="col-2 font-weight-bolds  white-row-bg pt-2 pb-2 ">
                         {{forloop.counter}}
                     </div>
                     <div class="col-3 white-row-bg pt-2 pb-2">
@@ -296,8 +296,9 @@
                     <div class="col-3 white-row-bg pt-2 pb-2">
                         {{income.description|title}}
                     </div>
-                    <div class="col-3 income white-row-bg pt-2 pb-2 amt jost">
-                        <span style="margin-right: 5px;">+</span>{{income.amount}}
+                    <div class="col-3 income white-row-bg pt-2 pb-2 amt jost" 
+                    style="font-weight: 500;">
+                        <span style="margin-right: 5px;">+</span>{{income.amount|intcomma}}
                     </div>
                     <div class="col-1 pt-1 income ">
                         {% include 'remove-income.html' %}
@@ -340,7 +341,7 @@
                 <div class="col-6 row-font">
                     {% for expense in expenses %}
                     <div class="row content expenseContent word-wrap" id="expContent_{{expense.slug}}" data-slug="{{expense.slug}}">
-                        <div class="col-2 font-weight-bold white-row-bg pt-2 pb-2">
+                        <div class="col-2 font-weight-bolds white-row-bg pt-2 pb-2">
                             {{forloop.counter}}
                         </div>
                         <div class="col-3 white-row-bg pt-2 pb-2">
@@ -349,8 +350,9 @@
                         <div class="col-3 white-row-bg pt-2 pb-2">
                             {{expense.description|title}}
                         </div>
-                        <div class="col-3 expense white-row-bg pt-2 pb-2 amt jost">
-                            <span style="margin-right: 5px;">-</span>{{expense.amount}}
+                        <div class="col-3 expense white-row-bg pt-2 pb-2 amt jost"
+                        style="font-weight: 500;">
+                            <span style="margin-right: 5px;">-</span>{{expense.amount|intcomma}}
                             {% include 'loss_percent.html' %}
                         </div>
                         <div class="col-1 pt-1 expense ">
@@ -398,9 +400,9 @@
     </div>
 <br>
 
-    <div class="container-fluid mobile-content" >
+    <div class="container-fluid mobile-content " >
 
-        <div class="row row-font">
+        <div class="row row-font jost">
 
             <!-- Heading -->
             {% if incomes|length != 0 %}
@@ -428,7 +430,7 @@
 
             {% if incomes|length != 0 %}
             <!-- Income -->
-            <div class="col-12 row-font word-wrap">
+            <div class="col-12 row-font word-wrap ">
                 {% for income in incomes %}
                 
                 <div class="row content incomeContent " 
@@ -439,7 +441,7 @@
                     
 
                 <div class="col-1 white-row-bg"></div>
-                <div class="col-5 white-row-bg   font-weight-bold text-centers " 
+                <div class="col-5 white-row-bg   font-weight-bolds text-centers " 
                 style="border-right:2px solid #00BFA5;">
                         <div class="container  p-3">
                             {{income.description|title}}
@@ -447,7 +449,7 @@
                 </div>
                 <div class="col-6  income white-row-bg pt-2 pb-2 amt jost">
                     <div class="container p-3">
-                        <span style="margin-right: 8px;">+</span>{{income.amount}}
+                        <span style="margin-right: 8px;">+</span>{{income.amount|intcomma}}
                     </div>
                 </div>
                 {% include 'remove_income_mobile.html' %}
@@ -522,7 +524,7 @@
                             {{expense.datetime | naturalday | title}}
                             </div> -->
                         <div class="col-1 white-row-bg"></div>
-                        <div class="col-5 white-row-bg   font-weight-bold text-centers "
+                        <div class="col-5 white-row-bg   font-weight-bolds text-centers "
                                 style="border-right:2px solid #E53935;">
                             <div class="container  p-3">
                                 {{expense.description|title}}
@@ -530,7 +532,7 @@
                         </div>
                         <div class="col-6 expense white-row-bg pt-2 pb-2 amt jost">
                             <div class="container  p-3">
-                                <span style="margin-right: 8px;">-</span>{{expense.amount}}
+                                <span style="margin-right: 8px;">-</span>{{expense.amount|intcomma}}
                                 {% include '_mobile_loss_percent.html' %}
                             </div>
                         </div>

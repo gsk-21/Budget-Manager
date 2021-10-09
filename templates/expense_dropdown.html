@@ -22,10 +22,10 @@
         </div>
 
         <div class="col-5 white-row-bg pt-2 pb-2">
-            {{i.date|naturalday }}
+            {{i.date|naturalday|title }}
         </div>
         <div class="col-4 expense white-row-bg pt-2 pb-2 amts jost">
-            <span style="margin-right: 5px;">+</span>{{i.amount}}
+            <span style="margin-right: 5px;">+</span>{{i.amount|intcomma}}
             <span class="expense user-expense-percent  white-row-bg pt-1 pb-1">
                 {{i.percent}}%
             </span>

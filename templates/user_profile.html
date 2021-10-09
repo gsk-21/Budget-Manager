@@ -284,16 +284,16 @@
     
     </div>
 
-    <div class="container-fluid desktop-content">
+    <div class="container-fluid desktop-content jost">
         <div class="row row-font">
             {% if incomes|length != 0 %}
             <!-- Income -->
 
             <div class="col-6 row-font">
-                {% for key,value in incomes_dict.items|dictsortreversed:0 %}
+                {% for key,value in incomes_dict.items %}
                 <div class="row content  word-wrap"  >
 
-                    <div class="col-2 font-weight-bold  white-row-bg pt-2 pb-2 ">
+                    <div class="col-2 font-weight-bolds  white-row-bg pt-2 pb-2 ">
                         {{forloop.counter}}
                     </div>
 
@@ -301,7 +301,7 @@
                         {{key | title}}
                     </div>
                     <div class="col-4 income white-row-bg pt-2 pb-2 amt jost">
-                        <span style="margin-right: 5px;">+</span>{{value.0}}
+                        <span style="margin-right: 5px;">+</span>{{value.0|intcomma}}
                         <span class="income user-expense-percent  white-row-bg pt-1 pb-1">
                             {{value.3}}%
                         </span>
@@ -344,9 +344,9 @@
             {% if expenses|length != 0 %}
             <!-- Expense -->
             <div class="col-6 row-font">
-                {% for key,value in expenses_dict.items|dictsortreversed:1 %}
+                {% for key,value in expenses_dict.items %}
                 <div class="row content  word-wrap"  >
-                    <div class="col-2 font-weight-bold white-row-bg pt-2 pb-2">
+                    <div class="col-2 font-weight-bolds white-row-bg pt-2 pb-2">
                         {{forloop.counter}}
                     </div>
 
@@ -354,7 +354,7 @@
                         {{key | title}}
                     </div>
                     <div class="col-4 expense white-row-bg pt-2 pb-2 amt jost">
-                        <span style="margin-right: 5px;">-</span>{{value.0}}
+                        <span style="margin-right: 5px;">-</span>{{value.0|intcomma}}
                         <span class="expense user-expense-percent  white-row-bg pt-1 pb-1">
                             {{value.3}}%
                         </span>
@@ -405,7 +405,7 @@
 
 <!-- -------------------Mobile------------------ -->
 
-    <div class="container-fluid mobile-content">
+    <div class="container-fluid mobile-content jost">
 
         <div class="row row-font">
 
@@ -431,7 +431,7 @@
             {% if incomes|length != 0 %}
             <!-- Income -->
             <div class="col-12 row-font word-wrap " >
-                {% for key,value in incomes_dict.items|dictsortreversed:1 %}
+                {% for key,value in incomes_dict.items %}
                 
                 {% include 'income_dropdown_mobile.html' %}
 
@@ -491,7 +491,7 @@
             {% if expenses|length != 0 %}
             <!-- Expense -->
             <div class="col-12 row-font">
-                {% for key,value in expenses_dict.items|dictsortreversed:1 %}
+                {% for key,value in expenses_dict.items %}
 
                 {% include 'expense_dropdown_mobile.html' %}
 

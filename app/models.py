@@ -23,7 +23,7 @@ class Income(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return str(self.description) + "-" + str(self.amount)
+        return str(self.user) + " | " + str(self.datetime)
 
     class Meta:
         ordering = ['-datetime']
@@ -40,11 +40,11 @@ class Expense(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = get_unique_slug(self, 'description', 'slug')
+            self.slug = get_unique_slug(self, 'datetime', 'slug')
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return str(self.description) + "-" + str(self.amount)
+        return str(self.user) + " | " + str(self.datetime)
 
     class Meta:
         ordering = ['-datetime']
@@ -64,4 +64,4 @@ class Profile(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return "@{}".format(self.user.username)
+        return "@{}".format(self.user.username) + str(self.key)

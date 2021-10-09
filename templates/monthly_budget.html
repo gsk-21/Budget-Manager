@@ -135,7 +135,7 @@
 
             <div class="row white-row-bg budget-row-light budget-row" style="cursor: pointer;" >
                 <a href="{% url 'single-month-budget' month=months.month_number year=key %}">
-                    <div class="col-12 ">
+                    <div class="col-12 jost">
                         <div class="row font-weight-bolds mb-2 mt-2">
                             <div class="col-3 font-weight-bolds text-black ">
                                 {{months.month}}
@@ -144,7 +144,7 @@
                                 {% if months.income == '-' %}
                                 <span class="text-center ">-</span>
                                 {% else %}
-                                    ₹ {{months.income}}
+                                    ₹ {{months.income|intcomma}}
                                     <!-- <span class="expense-percent  pt-1 pb-1">
                                         {{months.income_percent}}%
                                 </span> -->
@@ -155,7 +155,7 @@
                                 {% if months.expense == '-' %}
                                     <span class="ml-5">-</span>
                                 {% else %}
-                                    ₹ {{months.expense}}
+                                    ₹ {{months.expense|intcomma}}
                                     <span class="expense-percent  pt-1 pb-1">
                                         {{months.expense_percent}}%
                                 </span>
@@ -166,7 +166,7 @@
                                 {% if months.savings == '-' %}
                                     <span class="text-center ">-</span>
                                 {% else %}
-                                    ₹ {{months.savings}}
+                                    ₹ {{months.savings|intcomma}}
                                     <span class="savings-percent  pt-1 pb-1">
                                         {{months.savings_percent}}%
                                 </span>
@@ -197,7 +197,7 @@
                             {% if v.yearly_income == '-' %}
                             <span class="text-center ">-</span>
                             {% else %}
-                                ₹ {{v.yearly_income}}
+                                ₹ {{v.yearly_income|intcomma}}
                                 <!-- <span class="expense-percent  pt-1 pb-1">
                                     {{v.yearly_inc_percent}}%
                             </span> -->
@@ -208,7 +208,7 @@
                             {% if v.yearly_expense  == '-' %}
                                 <span class="ml-5">-</span>
                             {% else %}
-                                ₹ {{v.yearly_expense}}
+                                ₹ {{v.yearly_expense|intcomma}}
                                 <span class="expense-percent  pt-1 pb-1">
                                     {{v.yearly_exp_percent}}%
                             </span>
@@ -219,7 +219,7 @@
                             {% if v.yearly_savings == '-' %}
                                 <span class="text-center">-</span>
                             {% else %}
-                                ₹ {{v.yearly_savings}}
+                                ₹ {{v.yearly_savings|intcomma}}
                                 <span class="savings-percent  pt-1 pb-1">
                                     {{v.yearly_savings_percent}}%
                             </span>
@@ -289,56 +289,61 @@
             style="cursor: pointer;
                     " >
                 <a href="{% url 'single-month-budget' month=months.month_number year=key %}">
-                    <div class="col-12 word-wrap" style="">
-                        <div class="row font-weight-bold mb-2 mt-2 text-centers " >
-                            <div class="col-3 font-weight-bold text-black" >
-                                <span class="p-3" >
+                    <div class="col-12 word-wrap josts " style="">
+                        <div class="row font-weight-bold  mb-2 mt-2 text-centers " >
+
+                            <div class="col-3 font-weight-bolds jost text-black " >
+                                
+                                <span class="p-3 " style="font-weight: 500 !important;">
                                     {{months.month}}
                                 </span>
                                 
                             </div>
-                            <div class="col-3 income monthly-font" >
+                            <div class="col-3 income monthly-font jost monthly-mobile " 
+                            style="">
                                 {% if months.income == '-' %}
                                 <span class="text-center ">-</span>
                                 {% else %}
-                                <span style="margin-right: 5px;"></span>{{months.income}}
+                                <span style="margin-right: 5px;"></span>{{months.income|intcomma}}
                                     <!-- <span class="expense-percent  pt-1 pb-1">
                                         {{months.income_percent}}%
                                 </span> -->
                                 {% endif %}
 
                             </div>
-                            <div class="col-3 expense monthly-font">
+                            <div class="col-3 expense monthly-font jost monthly-mobile "
+                                style="">
                                 {% if months.expense == '-' %}
                                     <span class="ml-5">-</span>
                                 {% else %}
-                                <span style="margin-right: 5px;" class=""></span>{{months.expense}}
+                                <span style="margin-right: 5px;" class=""></span>{{months.expense|intcomma}}
                                     <span class="expense-percent  pt-1 pb-1">
                                         {{months.expense_percent|truncatechars:5}}%
                                 </span>
                                 {% endif %}
 
                             </div>
-                            <div class="col-3 font-weight-bolds text-blacks savings monthly-font">
+                            <div class="col-3 font-weight-bolds text-blacks savings monthly-font jost monthly-mobile"
+                            style="">
                                 {% if months.savings == '-' %}
                                     <span class="text-center ">-</span>
                                 {% else %}
-                                <span style="margin-right: 5px;"></span>{{months.savings}}
+                                <span style="margin-right: 5px;"></span>{{months.savings|intcomma}}
                                     <span class="savings-percent  pt-1 pb-1">
                                         {{months.savings_percent|truncatechars:5}}%
                                 </span>
+
                                 {% endif %}
 
                             </div>
 
                             <br>
                         </div>
-                    </div>
+                    </div>                    
                 </a>
 
-
             </div>
-            <div class=" mt-1 mb-3"></div>
+            <div class=" mt-4 mb-2"></div>
             <!-- {{months.month}} - {{months.income}} - {{months.expense}} - {{months.savings}}  -->
         {% endfor %}
 
@@ -346,7 +351,7 @@
 
             <div class="row white-row-bg pt-1 pb-1 josts " style="font-size: .6em;">
                 <div class="col-12 budget-row-total pt-3 pb-3" 
-                style="border-left:2px solid #00BFA5;
+                style="border-left:0px solid #00BFA5;
                         border-top:0px solid rgb(224, 224, 224);">
                     <div class="row font-weight-bold mb-2 mt-2 text-centers bg-dangers monthly-font">
                         <div class="col-3 font-weight-bold  josts bg-successs">
@@ -354,33 +359,33 @@
                                 Total (₹)
                             </span>
                         </div>
-                        <div class="col-3 income monthly-font">
+                        <div class="col-3 income monthly-font jost monthly-mobile">
                             {% if v.yearly_income == '-' %}
                             <span class="text-center ">-</span>
                             {% else %}
-                            <span style="margin-right: 5px;"></span>{{v.yearly_income}}
+                            <span style="margin-right: 5px;"></span>{{v.yearly_income|intcomma}}
                                 <!-- <span class="expense-percent  pt-1 pb-1">
                                     {{v.yearly_inc_percent}}%
                             </span> -->
                             {% endif %}
 
                         </div>
-                        <div class="col-3 expense monthly-font">
+                        <div class="col-3 expense monthly-font jost monthly-mobile">
                             {% if v.yearly_expense  == '-' %}
                                 <span class="ml-5">-</span>
                             {% else %}
-                            <span style="margin-right: 5px;"></span>{{v.yearly_expense}}
+                            <span style="margin-right: 5px;"></span>{{v.yearly_expense|intcomma}}
                                 <span class="expense-percent  pt-1 pb-1">
                                     {{v.yearly_exp_percent}}%
                             </span>
                             {% endif %}
 
                         </div>
-                        <div class="col-3 font-weight-bold text-blacks savings monthly-font">
+                        <div class="col-3 font-weight-bold text-blacks savings monthly-font jost monthly-mobile">
                             {% if v.yearly_savings == '-' %}
                                 <span class="text-center">-</span>
                             {% else %}
-                            <span style="margin-right: 5px;"></span>{{v.yearly_savings}}
+                            <span style="margin-right: 5px;"></span>{{v.yearly_savings|intcomma}}
                                 <span class="savings-percent  pt-1 pb-1">
                                     {{v.yearly_savings_percent}}%
                             </span>

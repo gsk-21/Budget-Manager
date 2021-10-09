@@ -12,8 +12,8 @@
         </span>
     </div>
 
-    <div class="col-5 white-row-bg   font-weight-bold text-centers "
-        style="border-right:2px solid #00BFA5;">
+    <div class="col-5 white-row-bg   font-weight-bolds text-centers "
+        style="border-right:2px solid #00BFA5;font-weight:500;">
         <div class="container  p-3">
             {{key | title}}
         </div>
@@ -21,7 +21,7 @@
 
     <div class="col-6  income white-row-bg pt-2 pb-2 amt jost">
         <div class="container p-3">
-            <span style="margin-right: 8px;">+</span>{{value.0}}
+            <span style="margin-right: 8px;">+</span>{{value.0|intcomma}}
             <span class="income user-expense-percent  white-row-bg pt-1 pb-1">
                 {{value.3}}%
             </span>
@@ -43,13 +43,13 @@
 
         <div class="col-5 white-row-bg pt-2 pb-2 p-3">
             <div class="container  p-3">
-                {{i.date|naturalday }}
+                {{i.date|naturalday|title }}
             </div>
         </div>
 
         <div class="col-6  income white-row-bg pt-2 pb-2 amts jost">
             <div class="container p-3">
-                <span style="margin-right: 8px;">+</span>{{i.amount}}
+                <span style="margin-right: 8px;">+</span>{{i.amount|intcomma}}
                 <span class="income user-expense-percent  white-row-bg pt-1 pb-1">
                     {{i.percent}}%
                 </span>
