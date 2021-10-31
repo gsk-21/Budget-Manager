@@ -274,10 +274,7 @@ def monthly_budget(request):
                         total_expense = total_expense + get_number(i.amount, key)
                     except:
                         total_expense = total_expense + i.amount
-                # total_income = formated(total_income)
-                # total_expense = formated(total_expense)
-                # total_income = income_list.aggregate(Sum('amount'))['amount__sum']
-                # total_expense = expense_list.aggregate(Sum('amount'))['amount__sum']
+
                 savings = total_income - total_expense
 
                 expense_percent = 0
@@ -311,12 +308,28 @@ def monthly_budget(request):
                                    'savings': str(int(savings)),
                                    'savings_percent': savings_percent,
                                    'expense_percent': expense_percent,
-                                   'income_percent': income_percent
+                                   'income_percent': income_percent,
+                                   'max_income': False,
+                                   'max_expense': False,
+                                   'max_savings': False,
+                                   'min_income': False,
+                                   'min_expense': False,
+                                   'min_savings': False,
                                    }
                     budget_list.append(budget_dict)
+
+            max(budget_list, key=lambda x: float(x['income']))['max_income'] = True
+            max(budget_list, key=lambda x: float(x['expense']))['max_expense'] = True
+            max(budget_list, key=lambda x: float(x['savings']))['max_savings'] = True
+
+            if len(budget_list) > 1:
+                min(budget_list, key=lambda x: float(x['income']))['min_income'] = True
+                min(budget_list, key=lambda x: float(x['expense']))['min_expense'] = True
+                min(budget_list, key=lambda x: float(x['savings']))['min_savings'] = True
+
             budget_list.reverse()
             # print(year, "  -  ", yearly_income, "  ", yearly_expense, "  ", yearly_savings)
-            if (yearly_expense < yearly_income):
+            if yearly_expense < yearly_income:
                 yearly_inc_percent = 100
                 yearly_exp_percent = int(round(((int(yearly_expense) / int(yearly_income)) * 100), 0))
                 yearly_savings_percent = (100 - yearly_exp_percent)
@@ -466,7 +479,7 @@ def get_overall_budget(user, key):
     if total_expense < total_income:
         total_inc_percentage = 100
         total_exp_percentage = round(((int(total_expense) / int(total_income)) * 100), 2)
-        total_savings_percentage = total_inc_percentage - total_exp_percentage
+        total_savings_percentage = round((total_inc_percentage - total_exp_percentage), 2)
     context['overall_income'] = formated(total_income)
     context['overall_expense'] = formated(total_expense)
     context['overall_savings'] = formated(savings)

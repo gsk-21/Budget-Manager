@@ -2,13 +2,13 @@
 
 {% load humanize %}
 
-    <div class="row content  "  id="income_mobile_{{value.2}}_drop_down" 
+<div class="row content  " id="income_mobile_{{value.2}}_drop_down"
     style="border:0px solid #00BFA5;border-left:0px solid #00BFA5;">
 
     <div class="col-1 white-row-bg income">
         <span class="p-3">
             <i class="fa fa-caret-down mt-4" id="income_mobile_{{value.2}}_caret-btn"></i>
-            
+
         </span>
     </div>
 
@@ -33,15 +33,22 @@
 <!-- {% include 'income_dropdown.html' %} -->
 
 <div class="" hidden id="income_mobile_{{value.2}}">
-    
-{% for i in value.1|dictsortreversed:"amount"  %}
+
+    {% for i in value.1|dictsortreversed:"amount" %}
 
     <div class="row content incomeContent word-wrap bg-incomes">
 
-        <div class="col-1 white-row-bg pt-2 pb-2 income-left-border">
+        <div class="col-1 white-row-bg pt-2 pb-2 p-3 income">
+
+            <div class="container  p-3">
+                <i class="fas fa-solid fa-angle-right"></i>
+                <!-- <i class="fas fa-solid fa-angle-right"></i> -->
+            </div>
+            <!-- <i class="fas fa-solid fa-angle-right"></i> -->
+
         </div>
 
-        <div class="col-5 white-row-bg pt-2 pb-2 p-3">
+        <div class="col-5 white-row-bg pt-2 pb-2 p-3" style="border-right:2px solid #00BFA5;font-weight:500;">
             <div class="container  p-3">
                 {{i.date|naturalday|title }}
             </div>
@@ -57,28 +64,27 @@
         </div>
 
     </div>
-    <div class=" mt-1"> </div>
+
+    <div class="mb-3"></div>
+
     {% endfor %}
     <div class="mb-3"></div>
 
 
-
-
-    
 <script>
 
     var incomeMobileDropdown = document.querySelector("#income_mobile_{{value.2}}_drop_down")
-    
-    incomeMobileDropdown.addEventListener('click',function(){
+
+    incomeMobileDropdown.addEventListener('click', function () {
         var incomeMobile_list = document.querySelector("#income_mobile_{{value.2}}")
         incomeMobile_list.hidden = !incomeMobile_list.hidden
 
-        caret_btn = document.querySelector("#income_mobile_{{value.2}}_caret-btn") 
+        caret_btn = document.querySelector("#income_mobile_{{value.2}}_caret-btn")
 
-        if(caret_btn.classList.contains("fa-caret-down")) {
+        if (caret_btn.classList.contains("fa-caret-down")) {
             caret_btn.classList.remove("fa-caret-down")
             caret_btn.classList.add("fa-caret-up")
-        }else{
+        } else {
             caret_btn.classList.remove("fa-caret-up")
             caret_btn.classList.add("fa-caret-down")
         }

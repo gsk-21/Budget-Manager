@@ -234,9 +234,9 @@
                 {% if incomes|length != 0 %}
                 <div class="row font-weight-bold mb-2">
                     <div class="col-2 ">
-                        No.
+                        <!-- No. -->
                     </div>
-                    <div class="col-5 ">
+                    <div class="col-4 ">
                         Description
                     </div>
                     <div class="col-4 ">
@@ -257,14 +257,13 @@
             <div class="col-6 ">
                 {% if expenses|length != 0 %}
                 <div class="row font-weight-bold mb-2">
-                    <div class="col-2">
-                        No.
+                    <div class="col-2 ">
+                        <!-- No. -->
                     </div>
-
-                    <div class="col-5 ">
+                    <div class="col-4 ">
                         Description
                     </div>
-                    <div class="col-4">
+                    <div class="col-4 ">
                         Total ( ₹ )
                     </div>
                     <div class="col-1 "></div>
@@ -293,14 +292,19 @@
                 {% for key,value in incomes_dict.items %}
                 <div class="row content  word-wrap"  >
 
-                    <div class="col-2 font-weight-bolds  white-row-bg pt-2 pb-2 ">
-                        {{forloop.counter}}
+                    <div class="col-2 font-weight-bolds  white-row-bg pt-2 pb-2 income">
+                        <!-- {{forloop.counter}} -->
+                        <span class="m-1">
+                            <i class="fas fa-solid fa-angle-right"></i>
+                        </span>
                     </div>
 
-                    <div class="col-5 white-row-bg pt-2 pb-2">
+                    <div class="col-4 white-row-bg pt-2 pb-2 ">
                         {{key | title}}
                     </div>
-                    <div class="col-4 income white-row-bg pt-2 pb-2 amt jost">
+
+
+                    <div class=" col-5 income white-row-bg pt-2 pb-2 amt jost">
                         <span style="margin-right: 5px;">+</span>{{value.0|intcomma}}
                         <span class="income user-expense-percent  white-row-bg pt-1 pb-1">
                             {{value.3}}%
@@ -346,8 +350,10 @@
             <div class="col-6 row-font">
                 {% for key,value in expenses_dict.items %}
                 <div class="row content  word-wrap"  >
-                    <div class="col-2 font-weight-bolds white-row-bg pt-2 pb-2">
-                        {{forloop.counter}}
+                    <div class="col-2 font-weight-bolds white-row-bg pt-2 pb-2 expense">
+                        <span class="m-1">
+                            <i class="fas fa-solid fa-angle-right"></i>
+                        </span>
                     </div>
 
                     <div class="col-5  white-row-bg pt-2 pb-2">

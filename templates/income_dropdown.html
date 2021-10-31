@@ -17,14 +17,14 @@
 
     <div class="row content incomeContent word-wrap ">
 
-        <div class="col-2 white-row-bg pt-2 pb-2 income-left-border">
-
+        <div class="col-2 white-row-bg pt-2 pb-2 income-left-borderS incomeS li">
+            {{forloop.counter}}.
         </div>
 
-        <div class="col-5 white-row-bg pt-2 pb-2">
+        <div class="col-4 white-row-bg pt-2 pb-2">
             {{i.date|naturalday|title }}
         </div>
-        <div class="col-4 income white-row-bg pt-2 pb-2 amts jost">
+        <div class="col-5 income white-row-bg pt-2 pb-2 amts jost ">
             <span style="margin-right: 5px;">+</span>{{i.amount|intcomma}}
             <span class="income user-expense-percent  white-row-bg pt-1 pb-1">
                 {{i.percent}}%
