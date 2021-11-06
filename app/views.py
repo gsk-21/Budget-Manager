@@ -32,14 +32,41 @@ def home(request):
         incomes = Income.objects.filter(user=user).filter(datetime__month=date.month).filter(datetime__year=date.year)
         expenses = Expense.objects.filter(user=user).filter(datetime__month=date.month).filter(datetime__year=date.year)
 
+        incomes_list = Income.objects.filter(user=user)
+        expenses_list = Expense.objects.filter(user=user)
+
         key = Profile.objects.get(user=user).key
         incomes, expenses = decrypt_list(key, incomes, expenses)
-
+        incomes_list, expenses_list = decrypt_list(key, incomes_list, expenses_list)
         test_income = Income.objects.filter(user=user)
+
+        incomes_set = set()
+        expenses_set = set()
+        incomes_amount = set()
+        expenses_amount = set()
+        for i in incomes_list:
+            desc = i.description.lower()
+            amount = int(float(i.amount))
+            incomes_set.add(desc)
+            incomes_amount.add(amount)
+
+        for i in expenses_list:
+            desc = i.description.lower()
+            amount = int(float(i.amount))
+            expenses_set.add(desc)
+            expenses_amount.add(amount)
+
+        print(incomes_set)
+        print(incomes_amount)
+        print(expenses_set)
+        print(expenses_amount)
 
         context['incomes'] = incomes
         context['expenses'] = expenses
-
+        context['incomes_list'] = list(incomes_set)
+        context['expenses_list'] = list(expenses_set)
+        context['incomes_amount'] = list(incomes_amount)
+        context['expenses_amount'] = list(expenses_amount)
         total_income, total_expense = get_totalIncExp(incomes, expenses, key)
         savings = total_income - total_expense
         if savings < 1:

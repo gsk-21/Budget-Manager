@@ -23,9 +23,16 @@
               <br>
               <div class="mb-2"></div>
               <div class="form mt-0 mb-2">
-                <input type="number" id="exp-amount" oninput="enableExpAddBtn()" value=""
+                <input type="number" id="exp-amount" oninput="enableExpAddBtn()" value="" list="expense_amounts"
                 class="form-control  border-class form-white-bg modal-form-font" placeholder="Amount"
                 >
+
+                <datalist id="expense_amounts">
+                  {% for amount in expenses_amount %}
+                      <option value="{{amount}}">
+                  {% endfor %}
+                  </datalist>
+
               </div>
               <br>
               <div class="mb-2"></div>

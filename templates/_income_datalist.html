@@ -1,6 +1,5 @@
 <datalist id="incomes">
-    <option value="Salary">
-    <option value="Bonus">
-    <option value="Incentive">
-    <option value="Internet">
+{% for income in incomes_list %}
+    <option value="{{income|title}}">
+{% endfor %}
 </datalist>

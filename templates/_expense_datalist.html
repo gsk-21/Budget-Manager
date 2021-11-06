@@ -1,10 +1,7 @@
 <datalist id="expenses">
-    <option value="House Rent">
-    <option value="Hostel Rent">   
-    <option value="Electricity Bill">
-    <option value="Medical Bill">
-    <option value="Groceries">
-    <option value="Snacks">
-    <option value="EMI">
-    <option value="Dress">
+    {% for expense in expenses_list %}
+        <option value="{{expense|title}}">
+    {% endfor %}
 </datalist>
+        
+    
