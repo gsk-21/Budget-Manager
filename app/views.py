@@ -56,10 +56,6 @@ def home(request):
             expenses_set.add(desc)
             expenses_amount.add(amount)
 
-        print(incomes_set)
-        print(incomes_amount)
-        print(expenses_set)
-        print(expenses_amount)
 
         context['incomes'] = incomes
         context['expenses'] = expenses
@@ -68,6 +64,12 @@ def home(request):
         context['incomes_amount'] = list(incomes_amount)
         context['expenses_amount'] = list(expenses_amount)
         total_income, total_expense = get_totalIncExp(incomes, expenses, key)
+
+        context['incomes_list'].sort()
+        context['expenses_list'].sort()
+        context['incomes_amount'].sort()
+        context['expenses_amount'].sort()
+
         savings = total_income - total_expense
         if savings < 1:
             savings = 0
@@ -174,23 +176,7 @@ def user_profile_bk(request):
 
         incomes_dict = dict()
         expenses_dict = dict()
-        # for i in incomes:
-        #     if i.description not in incomes_dict:
-        #         incomes_dict[i.description] = 0
-        #     incomes_dict[i.description] = incomes_dict[i.description] + float(i.amount)
-        #     print(i.description, ":", i.amount)
-        #
-        # for i in expenses:
-        #     if i.description not in expenses_dict:
-        #         expenses_dict[i.description] = 0
-        #     expenses_dict[i.description] = expenses_dict[i.description] + float(i.amount)
-        #     print(i.description, ":", i.amount)
-        print("\nINCOMES:")
-        print(incomes)
-        print("\nEXPENSES:")
-        print(expenses)
 
-        print("\nINCOMES:")
         for i in incomes:
             desc = i.description.lower()
             if desc not in incomes_dict:
@@ -203,9 +189,7 @@ def user_profile_bk(request):
                                           })
 
             incomes_dict[desc][3] = round((incomes_dict[desc][0] / total_income) * 100, 2)
-            print(desc, ":", i.amount)
 
-        print("\nEXPENSES:")
         for i in expenses:
             desc = i.description.lower()
             if desc not in expenses_dict:
@@ -217,12 +201,7 @@ def user_profile_bk(request):
                                            'percent': percent
                                            })
             expenses_dict[desc][3] = round((expenses_dict[desc][0] / total_expense) * 100, 2)
-            print(desc, ":", i.amount)
 
-        print("\n")
-        print(incomes_dict)
-        print("\n")
-        print(expenses_dict)
         context['incomes'] = incomes
         context['expenses'] = expenses
 
@@ -267,10 +246,13 @@ def monthly_budget(request):
         expenses = Expense.objects.filter(user=user)
         years = set()
         for i in incomes:
-            years.add(i.datetime.year)
+            # years.add(i.datetime.year)
+            years.add(int(str(i.datetime)[0:4]))
         for i in expenses:
-            years.add(i.datetime.year)
+            # years.add(i.datetime.year)
+            years.add(int(str(i.datetime)[0:4]))
         years = list(years)
+
         years.sort()
         years.reverse()
         year_dict = {}
@@ -307,7 +289,6 @@ def monthly_budget(request):
                 expense_percent = 0
                 savings_percent = 0
                 income_percent = 0
-                # print("\nTotal Income:", total_income, "\nTotal Expense:", total_expense)
                 if savings != 0:
                     if total_income > 0 and total_expense > 0:
                         income_percent = 100
@@ -355,7 +336,6 @@ def monthly_budget(request):
                 min(budget_list, key=lambda x: float(x['savings']))['min_savings'] = True
 
             budget_list.reverse()
-            # print(year, "  -  ", yearly_income, "  ", yearly_expense, "  ", yearly_savings)
             if yearly_expense < yearly_income:
                 yearly_inc_percent = 100
                 yearly_exp_percent = int(round(((int(yearly_expense) / int(yearly_income)) * 100), 0))
@@ -370,8 +350,6 @@ def monthly_budget(request):
             temp_list = [budget_list, [yearly_total]]
             year_dict[year] = temp_list
 
-        # context['incomes'] = incomes
-        # context['expenses'] = expenses
         context['budgets'] = year_dict
 
         overall_budget = get_overall_budget(user, key)
@@ -588,14 +566,12 @@ def sign_up(request):
 
 def set_theme(request):
     if request.user.is_authenticated:
-        print("In set theme...")
         user = request.user
         theme = request.POST.get('theme')
         user = request.user
         profile = Profile.objects.get(user=user)
         profile.theme = theme
         profile.save()
-        print(theme)
         return HttpResponse(theme)
     else:
         return HttpResponse("Login to set theme")
